@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 旗帜：稚拙波浪旗面 -->
+  <circle cx="13" cy="8.4" r="1.9" fill="#1A1A1A" stroke="none"/>
+  <path d="M13 10.5 V40"/>
+  <path d="M13 11.6 C20.2 8.4 28.6 14.4 37.4 11.2 V25.2 C28.6 28.4 20.2 22.4 13 25.6 Z" fill="#FFFFFF"/>
+</svg>
