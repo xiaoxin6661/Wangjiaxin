@@ -89,6 +89,19 @@
         border-radius: 50%; background: var(--accent);
       }
       .duty-item b { color: var(--ink); }
+      .shot-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; margin-top: 24px; }
+      @media (min-width: 640px) { .shot-grid { grid-template-columns: repeat(3, 1fr); } }
+      .shot-slot {
+        border: 2px dashed rgba(184, 149, 106, 0.55); border-radius: 14px;
+        background: rgba(255, 253, 248, 0.6); aspect-ratio: 16 / 10;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 6px; color: var(--ink-light); text-align: center; padding: 12px;
+        transition: all 0.25s ease;
+      }
+      .shot-slot:hover { border-color: var(--accent); background: rgba(255, 253, 248, 0.95); }
+      .shot-slot .slot-icon { opacity: 0.75; }
+      .shot-slot .slot-name { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-size: 15px; letter-spacing: 1px; color: var(--ink-soft); }
+      .shot-slot .slot-hint { font-size: 11px; opacity: 0.7; }
       @media (max-width: 640px) {
         .page-head h1 { font-size: 34px; }
         .back-home { top: 14px; left: 14px; }
@@ -142,6 +155,24 @@
             <h3 class="sec-title">最终结果</h3>
             <p class="text-text-muted text-sm leading-relaxed">落地完整的求职追踪 Web 应用，包含邮箱自动同步、状态仪表盘、公司快照、面试准备、行为题练习五大模块；实现求职流程全链路结构化管理，大幅降低信息整理成本，支持 Demo 模式直接体验完整流程。</p>
           </div>
+
+          <div class="shot-grid">
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">状态仪表盘</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">公司快照</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">面试准备</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+          </div>
         </article>
 
         <!-- 项目二：Content Copilot · 达人管理工作台 -->
@@ -177,6 +208,24 @@
             <h3 class="sec-title">最终结果</h3>
             <p class="text-text-muted text-sm leading-relaxed">落地完整的达人运营工作台，涵盖达人清单、内容审核、Brief 设置、数据分析四大功能模块；统一液态玻璃设计语言，提升达人运营全流程的协作效率。</p>
           </div>
+
+          <div class="shot-grid">
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">达人清单</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">内容审核</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">Brief 设置</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+          </div>
         </article>
 
         <!-- 项目三：Tarot Star · 塔罗占卜交互网页 -->
@@ -211,6 +260,24 @@
           <div class="sec-block">
             <h3 class="sec-title">最终结果</h3>
             <p class="text-text-muted text-sm leading-relaxed">完成沉浸式塔罗占卜网页，支持抽牌、深度解读、星盘映射等功能；通过资源内联与预加载优化，消除外部资源请求，大幅提升首屏加载速度与页面稳定性。</p>
+          </div>
+
+          <div class="shot-grid">
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">抽牌交互</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">深度解读</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
+            <figure class="shot-slot">
+              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
+              <span class="slot-name">星盘映射</span>
+              <span class="slot-hint">截图占位 · 待补充</span>
+            </figure>
           </div>
         </article>
 
