@@ -79,17 +79,13 @@
         letter-spacing: 0.5px; color: var(--ink-soft); background: var(--paper-sand);
         border: 1px solid #ddd5c6; border-radius: 999px; padding: 3px 12px; margin: 0 6px 6px 0;
       }
-      .shot-slot {
-        position: relative; border: 2px dashed rgba(184, 149, 106, 0.55); border-radius: 14px;
-        background: rgba(255, 253, 248, 0.6); aspect-ratio: 16 / 10;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        gap: 6px; color: var(--ink-light); text-align: center; padding: 12px;
-        transition: all 0.25s ease;
+      .shot-img {
+        border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10;
+        box-shadow: 0 2px 12px rgba(90, 70, 40, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: block; width: 100%; height: 100%; object-fit: cover;
       }
-      .shot-slot:hover { border-color: var(--accent); background: rgba(255, 253, 248, 0.95); }
-      .shot-slot .slot-icon { font-size: 26px; opacity: 0.6; }
-      .shot-slot .slot-name { font-family: "ZCOOL KuaiLe", cursive; font-size: 15px; letter-spacing: 1px; color: var(--ink-soft); }
-      .shot-slot .slot-hint { font-size: 11px; opacity: 0.7; }
+      .shot-img:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90, 70, 40, 0.15); }
       @media (max-width: 640px) {
         .page-head h1 { font-size: 34px; }
         .back-home { top: 14px; left: 14px; }
@@ -121,21 +117,9 @@
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-7">
-            <figure class="shot-slot">
-              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
-              <span class="slot-name">产品首页</span>
-              <span class="slot-hint">截图占位 · 待补充</span>
-            </figure>
-            <figure class="shot-slot">
-              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
-              <span class="slot-name">核心功能页</span>
-              <span class="slot-hint">截图占位 · 待补充</span>
-            </figure>
-            <figure class="shot-slot">
-              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
-              <span class="slot-name">数据看板</span>
-              <span class="slot-hint">截图占位 · 待补充</span>
-            </figure>
+            <img class="shot-img" loading="lazy" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20job%20tracker%20web%20app%20dashboard%20homepage%2C%20clean%20minimalist%20UI%2C%20warm%20cream%20background%2C%20golden%20beige%20accent%20color%20%23b8956a%2C%20rounded%20job%20application%20cards%20list%2C%20sidebar%20navigation%2C%20Chinese%20UI%20text%2C%20soft%20shadows%2C%20modern%20product%20design%20mockup%2C%20high%20quality%20interface%20screenshot&image_size=landscape_4_3" alt="Job Tracker 产品首页" />
+            <img class="shot-img" loading="lazy" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20job%20description%20matching%20feature%20page%2C%20split%20screen%20layout%20with%20job%20description%20on%20left%20and%20AI%20analysis%20on%20right%2C%20warm%20cream%20palette%20golden%20beige%20accents%2C%20matching%20score%20percentage%2C%20skill%20gap%20tags%2C%20Chinese%20interface%2C%20product%20mockup%20screenshot%2C%20clean%20modern%20design&image_size=landscape_4_3" alt="Job Tracker 核心功能页" />
+            <img class="shot-img" loading="lazy" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Job%20tracker%20data%20analytics%20dashboard%2C%20multiple%20charts%20and%20metrics%2C%20application%20funnel%2C%20response%20rate%20line%20chart%2C%20company%20pie%20chart%2C%20kpi%20cards%20showing%20counts%2C%20warm%20cream%20background%20golden%20beige%20accents%2C%20Chinese%20labels%2C%20clean%20modern%20SaaS%20analytics%20UI%20mockup&image_size=landscape_4_3" alt="Job Tracker 数据看板" />
           </div>
 
           <ul class="space-y-4 text-text-muted text-sm leading-relaxed mb-6">
@@ -167,21 +151,9 @@
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-7">
-            <figure class="shot-slot">
-              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
-              <span class="slot-name">首页 · 情绪打卡</span>
-              <span class="slot-hint">截图占位 · 待补充</span>
-            </figure>
-            <figure class="shot-slot">
-              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
-              <span class="slot-name">情绪日历</span>
-              <span class="slot-hint">截图占位 · 待补充</span>
-            </figure>
-            <figure class="shot-slot">
-              <span class="slot-icon"><img src="assets/icons/image.svg" alt="" style="width:30px;height:30px;display:block"/></span>
-              <span class="slot-name">社区 / 树洞</span>
-              <span class="slot-hint">截图占位 · 待补充</span>
-            </figure>
+            <img class="shot-img" loading="lazy" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cute%20emotion%20diary%20WeChat%20mini%20program%20homepage%2C%20mobile%20phone%20mockup%2C%20emotion%20mood%20check%2Din%20interface%20with%20five%20mood%20emoji%20circles%20%28happy%20calm%20anxious%20sad%20angry%29%2C%20soft%20pastel%20cream%20and%20peach%20color%20palette%2C%20rounded%20cards%2C%20Chinese%20text%2C%20playful%20cute%20design%2C%20warm%20golden%20beige%20accents&image_size=landscape_4_3" alt="Suddly Spot 情绪打卡" />
+            <img class="shot-img" loading="lazy" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Emotion%20calendar%20mood%20heatmap%2C%20mobile%20app%20UI%2C%20monthly%20calendar%20grid%20where%20each%20day%20cell%20shows%20a%20colored%20circle%20representing%20mood%2C%20soft%20pastel%20palette%20cream%20peach%20golden%20beige%2C%20cute%20rounded%20design%2C%20Chinese%20weekday%20labels%2C%20clean%20minimalist%20layout&image_size=landscape_4_3" alt="Suddly Spot 情绪日历" />
+            <img class="shot-img" loading="lazy" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Anonymous%20community%20social%20feed%2C%20emotion%20sharing%20tree%20hole%20app%2C%20mobile%20phone%20mockup%2C%20post%20cards%20with%20user%20avatars%20mood%20tags%20and%20text%2C%20soft%20pastel%20cream%20palette%20golden%20beige%20accents%2C%20cute%20rounded%20bubbles%2C%20Chinese%20interface%2C%20comment%20and%20like%20icons&image_size=landscape_4_3" alt="Suddly Spot 社区树洞" />
           </div>
 
           <ul class="space-y-4 text-text-muted text-sm leading-relaxed mb-6">
