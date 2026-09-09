@@ -38,6 +38,35 @@
         content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
+
+      /* ==== 自定义光标 ==== */
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background: var(--accent); border-radius: 50%; pointer-events: none;
+        z-index: 10001; transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
+      }
+      .cursor-dot.hover {
+        width: 24px; height: 24px; background: transparent;
+        border: 2px solid var(--accent);
+      }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
+
+      /* ==== 磁性按钮 ==== */
+      .magnetic-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .magnetic-btn::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+        background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+      }
+      .magnetic-btn:hover { color: var(--ink); }
+      .magnetic-btn:hover::after { transform: scaleX(1); }
       body .bg-white { background-color: var(--cream); }
       h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
       .card-hover { transition: all 0.35s cubic-bezier(0.2, 0.8, 0.25, 1); }
@@ -69,6 +98,7 @@
         max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.8;
       }
 
+      /* 项目卡片 */
       .project-card {
         background: var(--cream);
         border: 1px solid #eee8db;
@@ -166,12 +196,14 @@
     </style>
   </head>
   <body>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" id="cursorDot"></div>
     <a href="index.html" class="back-home"><img src="assets/icons/arrow-left.svg" alt="" style="width:14px;height:14px;display:block"/>BACK HOME 返回主页</a>
 
     <header class="page-head">
-      <div class="p-eyebrow"><img src="assets/icons/spark.svg" alt="" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:7px"/> selected projects</div>
+      <div class="p-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">AI Projects · 2024 — 2026</div>
       <h1>项目作品</h1>
-      <p class="page-desc">AI是工具，人是主导。每个项目都围绕真实问题展开，从需求洞察到方案落地，全程参与并做出关键判断。</p>
+      <p class="page-desc" style="font-family:'Caveat',cursive;font-size:20px;font-style:italic;color:var(--ink-light);margin-top:10px;">AI is my tool, not the protagonist.</p>
       <svg class="mx-auto mt-5 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.3" style="max-width:70vw">
         <path d="M6,13 C26,3 46,3 66,13 C86,23 106,23 126,13 C146,3 166,3 186,13 C206,23 226,23 246,13 C266,3 286,3 306,13 C326,23 346,21 354,14" />
       </svg>
@@ -180,15 +212,18 @@
     <section class="py-12">
       <div class="container mx-auto px-6 max-w-3xl space-y-14">
 
+        <!-- 项目一：Job Tracker -->
         <article class="project-card card-hover reveal">
           <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
             <h2 class="text-2xl md:text-3xl">Job Tracker · AI求职助手</h2>
             <span class="repo-badge">job-tracker-qqmail</span>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">项目背景</h3>
             <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">秋招阶段求职申请分散在邮箱中，投递进度、笔面试通知、拒信信息零散混乱，人工整理效率低且易遗漏，面试准备缺乏针对性的结构化指引。</p>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">AI介入点</h3>
             <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
@@ -196,6 +231,7 @@
               <li class="duty-item"><b>内容生成：</b>基于公司与岗位信息，生成公司文化快照、面试流程拆解、分模块面试准备清单、定制化行为面试题</li>
             </ul>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">判断与修正</h3>
             <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
@@ -204,10 +240,12 @@
               <li class="duty-item"><b>针对信息抽取字段不准确的问题</b>，设计字段校验规则，所有抽取结果支持手动修正，不强制覆盖人工判断</li>
             </ul>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">最终结果</h3>
             <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">落地完整的求职追踪 Web 应用，包含邮箱自动同步、状态仪表盘、公司快照、面试准备、行为题练习五大模块；实现求职流程全链路结构化管理，大幅降低信息整理成本，支持 Demo 模式直接体验完整流程。</p>
           </div>
+
           <div class="shot-grid">
             <figure class="shot-slot">
               <span><img src="assets/icons/image.svg" alt="" style="width:28px;height:28px;display:block;opacity:0.6"/></span>
@@ -227,15 +265,18 @@
           </div>
         </article>
 
+        <!-- 项目二：Content Copilot -->
         <article class="project-card card-hover reveal">
           <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
             <h2 class="text-2xl md:text-3xl">Content Copilot · 达人管理工作台</h2>
             <span class="repo-badge">content-copilot-liquid-glass</span>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">项目背景</h3>
             <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">内容运营团队达人资源分散管理，内容审核标准不统一，Brief 下发效率低，缺少一站式的达人运营工作台，同时需要打造符合品牌调性的液态玻璃视觉风格。</p>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">AI介入点</h3>
             <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
@@ -243,6 +284,7 @@
               <li class="duty-item"><b>视觉与代码辅助：</b>用 Figma AI 辅助探索液态玻璃风格的样式方案，用 AI 辅助生成基础页面结构代码</li>
             </ul>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">判断与修正</h3>
             <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
@@ -251,10 +293,12 @@
               <li class="duty-item"><b>页面结构层面：</b>AI 生成的代码逻辑冗余，按照功能模块做分层重构，梳理达人管理、内容审核、Brief 配置三大核心流程的页面跳转逻辑</li>
             </ul>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">最终结果</h3>
             <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">落地完整的达人运营工作台，涵盖达人清单、内容审核、Brief 设置、数据分析四大功能模块；统一液态玻璃设计语言，提升达人运营全流程的协作效率。</p>
           </div>
+
           <div class="shot-grid">
             <figure class="shot-slot">
               <span><img src="assets/icons/image.svg" alt="" style="width:28px;height:28px;display:block;opacity:0.6"/></span>
@@ -274,15 +318,18 @@
           </div>
         </article>
 
+        <!-- 项目三：Tarot Star -->
         <article class="project-card card-hover reveal">
           <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
             <h2 class="text-2xl md:text-3xl">Tarot Star · 塔罗占卜交互网页</h2>
             <span class="repo-badge">tarot-star</span>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">项目背景</h3>
             <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">传统在线塔罗占卜页面交互形式单一，沉浸感不足；同时 GitHub Pages 部署下外部图片资源加载慢、失败率高，手势交互首次加载延迟高，严重影响用户体验。</p>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">AI介入点</h3>
             <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
@@ -290,6 +337,7 @@
               <li class="duty-item"><b>性能与交互方案：</b>用 AI 辅助分析页面性能瓶颈，输出预加载、资源优化的技术方案思路</li>
             </ul>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">判断与修正</h3>
             <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
@@ -298,10 +346,12 @@
               <li class="duty-item"><b>交互层面：</b>验证 AI 建议的手势交互逻辑，调整触发阈值与反馈动画，保证操作精准不误触</li>
             </ul>
           </div>
+
           <div class="sec-block">
             <h3 class="sec-title">最终结果</h3>
             <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">完成沉浸式塔罗占卜网页，支持抽牌、深度解读、星盘映射等功能；通过资源内联与预加载优化，消除外部资源请求，大幅提升首屏加载速度与页面稳定性。</p>
           </div>
+
           <div class="shot-grid">
             <figure class="shot-slot">
               <span><img src="assets/icons/image.svg" alt="" style="width:28px;height:28px;display:block;opacity:0.6"/></span>
@@ -326,10 +376,10 @@
 
     <footer class="page-footer">
       <div class="footer-nav">
-        <a href="about.html">ABOUT</a>
-        <a href="internship.html">INTERNSHIP</a>
-        <a href="campus.html">CAMPUS</a>
-        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener">GITHUB</a>
+        <a href="about.html" class="magnetic-btn">ABOUT</a>
+        <a href="internship.html" class="magnetic-btn">INTERNSHIP</a>
+        <a href="campus.html" class="magnetic-btn">CAMPUS</a>
+        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
       </div>
       <a href="index.html" class="back-btn">
         <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/>
@@ -339,6 +389,38 @@
     </footer>
 
     <script>
+      // ==== 自定义光标 ====
+      const cursorDot = document.getElementById('cursorDot');
+      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursorDot.style.left = cursorX + 'px';
+        cursorDot.style.top = cursorY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, .project-card, .magnetic-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+      });
+
+      // ==== 磁性按钮 ====
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+          btn.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1)';
+        });
+        btn.addEventListener('mouseenter', () => { btn.style.transition = 'none'; });
+      });
+
       const observer = new IntersectionObserver(function (entries) {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
