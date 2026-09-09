@@ -37,88 +37,230 @@
         content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
-      body .bg-white { background-color: var(--cream); }
-      body .bg-gray-50 { background-color: var(--paper-sand); }
-      body .border-gray-100 { border-color: #eee8db; }
-      body .border-gray-200 { border-color: #ddd5c6; }
-      body .bg-primary { background-color: var(--ink); }
-      body .text-primary { color: var(--ink); }
-      h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
-      h2 { letter-spacing: 3px; }
-      h3 { letter-spacing: 1.5px; }
-      .card-hover { transition: all 0.3s ease; }
-      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(90, 70, 40, 0.1); }
-      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-      .reveal.active { opacity: 1; transform: translateY(0); }
-      .back-home {
-        position: fixed; top: 20px; left: 24px; z-index: 50;
-        display: inline-flex; align-items: center; gap: 6px;
-        font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 1px;
-        color: var(--ink-soft); text-decoration: none;
-        background: rgba(255, 253, 248, 0.88);
-        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-        border: 1.4px solid rgba(184, 149, 106, 0.4); border-radius: 999px;
-        padding: 9px 18px 9px 15px; box-shadow: 0 4px 14px rgba(90, 70, 40, 0.08);
-        transform: rotate(-1.2deg); transition: all 0.25s ease;
+
+      /* ==== 自定义光标 ==== */
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background: var(--accent); border-radius: 50%; pointer-events: none;
+        z-index: 10001; transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
       }
-      .back-home:hover { color: var(--ink); transform: rotate(0deg) translateY(-1px); box-shadow: 0 8px 20px rgba(90, 70, 40, 0.14); }
-      .page-head { padding-top: 96px; text-align: center; }
+      .cursor-dot.hover {
+        width: 24px; height: 24px; background: transparent;
+        border: 2px solid var(--accent);
+      }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
+
+      /* ==== 磁性按钮 ==== */
+      .magnetic-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .magnetic-btn::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+        background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+      }
+      .magnetic-btn:hover { color: var(--ink); }
+      .magnetic-btn:hover::after { transform: scaleX(1); }
+      body .bg-white { background-color: var(--cream); }
+      h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
+      .card-hover { transition: all 0.35s cubic-bezier(0.2, 0.8, 0.25, 1); }
+      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(90, 70, 40, 0.12); }
+      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1); }
+      .reveal.active { opacity: 1; transform: translateY(0); }
+
+      .back-home {
+        position: fixed; top: 24px; left: 28px; z-index: 50;
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        background: rgba(255, 253, 248, 0.9);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border: 1.4px solid rgba(184, 149, 106, 0.35); border-radius: 999px;
+        padding: 9px 18px 9px 15px; box-shadow: 0 4px 16px rgba(90, 70, 40, 0.08);
+        transform: rotate(-1deg); transition: all 0.3s ease;
+      }
+      .back-home:hover { color: var(--ink); transform: rotate(0deg) translateY(-2px); }
+
+      .page-head { padding-top: 110px; text-align: center; padding-bottom: 20px; }
       .page-head .p-eyebrow {
         font-family: "Caveat", cursive; font-style: italic; font-weight: 700;
-        letter-spacing: 1px; font-size: 20px; color: var(--accent);
+        letter-spacing: 1.5px; font-size: 22px; color: var(--accent);
       }
-      .page-head h1 { font-size: 46px; letter-spacing: 5px; color: var(--ink); margin-top: 2px; }
+      .page-head h1 { font-size: 56px; letter-spacing: 6px; color: var(--ink); margin-top: 4px; line-height: 1.1; }
+      .page-head .page-desc {
+        font-size: 14.5px; color: var(--ink-light); margin-top: 16px;
+        max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.9;
+      }
+
+      /* 个人陈述大段落 */
+      .statement-card {
+        background: var(--cream);
+        border: 1px solid #eee8db;
+        border-radius: 22px 26px 24px 28px / 26px 22px 28px 24px;
+        padding: 40px 44px;
+        position: relative;
+        overflow: hidden;
+      }
+      .statement-card::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+        background: linear-gradient(90deg, var(--accent), rgba(184,149,106,0.2), var(--accent));
+        opacity: 0.7;
+      }
+      .statement-card .quote-mark {
+        font-family: "Caveat", cursive;
+        font-size: 80px;
+        color: rgba(184,149,106,0.2);
+        line-height: 0.6;
+        margin-bottom: 10px;
+      }
+      .statement-card p {
+        font-size: 15.5px;
+        line-height: 2;
+        color: var(--ink-soft);
+        margin-bottom: 16px;
+      }
+      .statement-card p:last-child { margin-bottom: 0; }
+      .statement-card .signature {
+        font-family: "Caveat", cursive;
+        font-size: 24px;
+        font-style: italic;
+        color: var(--accent);
+        margin-top: 20px;
+        text-align: right;
+      }
+
       .section-title {
-        display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+        display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
       }
-      .section-title h2 { font-size: 24px; }
+      .section-title h2 { font-size: 26px; }
       .section-title::after {
         content: ""; flex: 1; height: 1px;
-        background: linear-gradient(90deg, rgba(184,149,106,0.5), transparent);
+        background: linear-gradient(90deg, rgba(184,149,106,0.4), transparent);
       }
+
       .info-row {
-        display: flex; align-items: center; gap: 12px;
-        padding: 14px 0; border-bottom: 1px dashed #e3dccf;
+        display: flex; align-items: center; gap: 14px;
+        padding: 16px 0; border-bottom: 1px dashed #e3dccf;
       }
       .info-row:last-child { border-bottom: none; }
       .info-row .ico {
-        flex: none; width: 38px; height: 38px; border-radius: 50%;
+        flex: none; width: 42px; height: 42px; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        background: var(--paper-sand); border: 1.5px solid rgba(184,149,106,0.4);
-        font-size: 16px;
+        background: var(--paper-sand); border: 1.5px solid rgba(184,149,106,0.35);
       }
-      .info-row .label { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-light); letter-spacing: 1px; }
-      .info-row .val { font-size: 16px; color: var(--ink); text-decoration: none; }
+      .info-row .label {
+        font-family: "JetBrains Mono", monospace; font-size: 10.5px;
+        color: var(--ink-light); letter-spacing: 1px; margin-bottom: 2px;
+      }
+      .info-row .val { font-size: 15.5px; color: var(--ink); text-decoration: none; }
       a.val:hover { color: var(--accent); }
-      .skill-card { position: relative; }
-      .skill-card .skill-num {
-        font-family: "Caveat", cursive; font-weight: 700; font-size: 44px;
-        color: rgba(184,149,106,0.35); line-height: 1; position: absolute; top: 14px; right: 20px;
+
+      .skill-card {
+        position: relative;
+        background: var(--cream);
+        border: 1px solid #eee8db;
+        border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;
+        padding: 28px 26px;
+        overflow: hidden;
       }
-      .skill-card p { color: var(--ink-light); font-size: 14px; line-height: 1.9; }
+      .skill-card::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, rgba(184,149,106,0.5), rgba(184,149,106,0.15));
+      }
+      .skill-card .skill-num {
+        font-family: "Caveat", cursive; font-weight: 700; font-size: 52px;
+        color: rgba(184,149,106,0.25); line-height: 1;
+        position: absolute; top: 18px; right: 22px;
+      }
+      .skill-card h3 {
+        font-size: 19px; margin-bottom: 14px; padding-right: 50px;
+        position: relative; z-index: 1;
+      }
+      .skill-card p {
+        color: var(--ink-soft); font-size: 14px; line-height: 1.9;
+        position: relative; z-index: 1;
+      }
+
+      .page-footer {
+        padding: 60px 0 40px; text-align: center;
+      }
+      .page-footer .footer-nav {
+        display: flex; justify-content: center; gap: 28px; margin-bottom: 24px; flex-wrap: wrap;
+      }
+      .page-footer .footer-nav a {
+        font-family: "JetBrains Mono", monospace; font-size: 11px;
+        letter-spacing: 1px; color: var(--ink-light); text-decoration: none; transition: color 0.2s;
+      }
+      .page-footer .footer-nav a:hover { color: var(--accent); }
+      .page-footer .back-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: 13px; color: var(--ink-soft);
+        border: 1.4px solid rgba(184,149,106,0.4); border-radius: 999px;
+        padding: 10px 24px; background: var(--cream);
+        text-decoration: none; transition: all 0.3s ease;
+      }
+      .page-footer .back-btn:hover {
+        color: var(--ink); border-color: var(--accent);
+        transform: translateY(-2px); box-shadow: 0 6px 20px rgba(90,70,40,0.1);
+      }
+      .page-footer .copyright {
+        margin-top: 28px; font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px; color: var(--soft); letter-spacing: 0.8px; opacity: 0.7;
+      }
+
       @media (max-width: 640px) {
-        .page-head h1 { font-size: 34px; }
-        .back-home { top: 14px; left: 14px; }
+        .page-head { padding-top: 90px; }
+        .page-head h1 { font-size: 38px; letter-spacing: 4px; }
+        .page-head .page-desc { font-size: 13px; padding: 0 20px; }
+        .back-home { top: 16px; left: 16px; }
+        .statement-card { padding: 28px 24px; }
+        .statement-card p { font-size: 14.5px; }
       }
     </style>
   </head>
   <body>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" id="cursorDot"></div>
     <a href="index.html" class="back-home"><img src="assets/icons/arrow-left.svg" alt="" style="width:14px;height:14px;display:block"/>BACK HOME 返回主页</a>
 
     <header class="page-head">
-      <div class="p-eyebrow"><img src="assets/icons/spark.svg" alt="" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:7px"/> about me</div>
+      <div class="p-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">About Me · 2026</div>
       <h1>关于我</h1>
-      <svg class="mx-auto mt-1 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.35" style="max-width:70vw">
+      <p class="page-desc" style="font-family:'Caveat',cursive;font-size:20px;font-style:italic;color:var(--ink-light);margin-top:10px;">still learning, still building.</p>
+      <svg class="mx-auto mt-5 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.3" style="max-width:70vw">
         <path d="M6,13 C26,3 46,3 66,13 C86,23 106,23 126,13 C146,3 166,3 186,13 C206,23 226,23 246,13 C266,3 286,3 306,13 C326,23 346,21 354,14" />
       </svg>
     </header>
 
-    <section class="py-14">
-      <div class="container mx-auto px-6 max-w-4xl space-y-14">
+    <section class="py-12">
+      <div class="container mx-auto px-6 max-w-3xl space-y-16">
 
+        <!-- 个人陈述 -->
+        <div class="reveal">
+          <div class="statement-card card-hover">
+            <div class="quote-mark">"</div>
+            <p>
+              嗨，我是佳欣，一名在读大四学生，热爱旅游、二次元，也热爱用设计来解决问题、表达思想。
+            </p>
+            <p>
+              从内容运营到产品运营，我在小红书、百度等真实业务场景中打磨自己的判断力与执行力。我相信AI是工具，人是主导——擅长借助AI提效，但始终保持对输出质量的把控与关键决策的判断。
+            </p>
+            <p>
+              业余时间喜欢用Vibe Coding捣鼓一些小项目，从求职助手到达人管理工作台，享受从0到1把想法变成现实的过程。still learning, still building.
+            </p>
+            <div class="signature">— Jiaxin</div>
+          </div>
+        </div>
+
+        <!-- 个人信息 -->
         <div class="reveal">
           <div class="section-title"><h2>个人信息</h2></div>
-          <div class="bg-white rounded-2xl border border-gray-100 px-6 md:px-8 py-4 card-hover">
+          <div class="bg-white rounded-2xl border border-gray-100 px-7 md:px-9 py-3 card-hover" style="border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;">
             <div class="info-row">
               <span class="ico"><img src="assets/icons/user.svg" alt="" style="width:20px;height:20px;display:block"/></span>
               <div><div class="label">NAME</div><div class="val">王佳欣 · 女</div></div>
@@ -138,23 +280,24 @@
           </div>
         </div>
 
+        <!-- 所备技能 -->
         <div class="reveal">
           <div class="section-title"><h2>所备技能</h2></div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div class="skill-card bg-white rounded-2xl border border-gray-100 p-6 card-hover">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="skill-card card-hover">
               <span class="skill-num">01</span>
-              <h3 class="text-lg mb-3 pr-10">产品与数据能力</h3>
+              <h3>产品与数据能力</h3>
               <p>熟悉产品全生命周期管理，精通需求分析、原型设计与PRD撰写；熟练使用Excel、SQL、Python进行业务数据拆解、复盘与决策。</p>
             </div>
-            <div class="skill-card bg-white rounded-2xl border border-gray-100 p-6 card-hover">
+            <div class="skill-card card-hover">
               <span class="skill-num">02</span>
-              <h3 class="text-lg mb-3 pr-10">AI工具应用能力</h3>
+              <h3>AI工具应用能力</h3>
               <p>熟练使用主流大模型（ChatGPT/Claude/文心一言等），具备Prompt Engineering能力；掌握Vibe Coding，能独立开发AI运营产品Demo与原型，具备人机协同的工作意识和判断力。</p>
             </div>
-            <div class="skill-card bg-white rounded-2xl border border-gray-100 p-6 card-hover">
+            <div class="skill-card card-hover">
               <span class="skill-num">03</span>
-              <h3 class="text-lg mb-3 pr-10">通用技能</h3>
-              <p>英语CET-4，读写流利；极强的抗压能力与团队协作能力。</p>
+              <h3>通用技能</h3>
+              <p>英语CET-4，读写流利；极强的抗压能力与团队协作能力；擅长活动策划与现场执行，具备良好的表达呈现能力。</p>
             </div>
           </div>
         </div>
@@ -162,17 +305,60 @@
       </div>
     </section>
 
-    <footer class="py-12 text-center">
-      <a href="index.html" class="inline-flex items-center gap-2 text-sm text-text-muted hover:text-primary transition-colors border border-gray-200 rounded-full px-6 py-2.5 bg-white card-hover">
-        <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/> 返回思维导图首页
+    <footer class="page-footer">
+      <div class="footer-nav">
+        <a href="internship.html" class="magnetic-btn">INTERNSHIP</a>
+        <a href="projects.html" class="magnetic-btn">PROJECTS</a>
+        <a href="campus.html" class="magnetic-btn">CAMPUS</a>
+        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
+      </div>
+      <a href="index.html" class="back-btn">
+        <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/>
+        返回思维导图首页
       </a>
-      <p class="mt-6 text-text-muted text-xs opacity-70">© 2026 王佳欣</p>
+      <p class="copyright">© 2026 WANG JIAXIN · ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
+      // ==== 自定义光标 ====
+      const cursorDot = document.getElementById('cursorDot');
+      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursorDot.style.left = cursorX + 'px';
+        cursorDot.style.top = cursorY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, .skill-card, .magnetic-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+      });
+
+      // ==== 磁性按钮 ====
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+          btn.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1)';
+        });
+        btn.addEventListener('mouseenter', () => { btn.style.transition = 'none'; });
+      });
+
       const observer = new IntersectionObserver(function (entries) {
-        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("active"); });
-      }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add("active"), index * 90);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     </script>
   </body>

@@ -37,79 +37,165 @@
         content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
-      body .bg-white { background-color: var(--cream); }
-      body .bg-gray-50 { background-color: var(--paper-sand); }
-      body .border-gray-100 { border-color: #eee8db; }
-      body .border-gray-200 { border-color: #ddd5c6; }
-      body .bg-primary { background-color: var(--ink); }
-      body .text-primary { color: var(--ink); }
-      h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
-      h2 { letter-spacing: 3px; }
-      h3 { letter-spacing: 1.5px; }
-      .card-hover { transition: all 0.3s ease; }
-      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(90, 70, 40, 0.1); }
-      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-      .reveal.active { opacity: 1; transform: translateY(0); }
-      .back-home {
-        position: fixed; top: 20px; left: 24px; z-index: 50;
-        display: inline-flex; align-items: center; gap: 6px;
-        font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 1px;
-        color: var(--ink-soft); text-decoration: none;
-        background: rgba(255, 253, 248, 0.88);
-        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-        border: 1.4px solid rgba(184, 149, 106, 0.4); border-radius: 999px;
-        padding: 9px 18px 9px 15px; box-shadow: 0 4px 14px rgba(90, 70, 40, 0.08);
-        transform: rotate(-1.2deg); transition: all 0.25s ease;
+
+      /* ==== 自定义光标 ==== */
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background: var(--accent); border-radius: 50%; pointer-events: none;
+        z-index: 10001; transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
       }
-      .back-home:hover { color: var(--ink); transform: rotate(0deg) translateY(-1px); box-shadow: 0 8px 20px rgba(90, 70, 40, 0.14); }
-      .page-head { padding-top: 96px; text-align: center; }
+      .cursor-dot.hover {
+        width: 24px; height: 24px; background: transparent;
+        border: 2px solid var(--accent);
+      }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
+
+      /* ==== 磁性按钮 ==== */
+      .magnetic-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .magnetic-btn::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+        background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+      }
+      .magnetic-btn:hover { color: var(--ink); }
+      .magnetic-btn:hover::after { transform: scaleX(1); }
+      body .bg-white { background-color: var(--cream); }
+      h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
+      .card-hover { transition: all 0.35s cubic-bezier(0.2, 0.8, 0.25, 1); }
+      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(90, 70, 40, 0.12); }
+      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1); }
+      .reveal.active { opacity: 1; transform: translateY(0); }
+
+      .back-home {
+        position: fixed; top: 24px; left: 28px; z-index: 50;
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        background: rgba(255, 253, 248, 0.9);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border: 1.4px solid rgba(184, 149, 106, 0.35); border-radius: 999px;
+        padding: 9px 18px 9px 15px; box-shadow: 0 4px 16px rgba(90, 70, 40, 0.08);
+        transform: rotate(-1deg); transition: all 0.3s ease;
+      }
+      .back-home:hover { color: var(--ink); transform: rotate(0deg) translateY(-2px); }
+
+      .page-head { padding-top: 110px; text-align: center; padding-bottom: 20px; }
       .page-head .p-eyebrow {
         font-family: "Caveat", cursive; font-style: italic; font-weight: 700;
-        letter-spacing: 1px; font-size: 20px; color: var(--accent);
+        letter-spacing: 1.5px; font-size: 22px; color: var(--accent);
       }
-      .page-head h1 { font-size: 46px; letter-spacing: 5px; color: var(--ink); margin-top: 2px; }
+      .page-head h1 { font-size: 56px; letter-spacing: 6px; color: var(--ink); margin-top: 4px; line-height: 1.1; }
+      .page-head .page-desc {
+        font-size: 14.5px; color: var(--ink-light); margin-top: 16px;
+        max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8;
+      }
+
       .section-title {
-        display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+        display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
       }
-      .section-title h2 { font-size: 24px; }
+      .section-title h2 { font-size: 26px; }
       .section-title::after {
         content: ""; flex: 1; height: 1px;
-        background: linear-gradient(90deg, rgba(184,149,106,0.5), transparent);
+        background: linear-gradient(90deg, rgba(184,149,106,0.4), transparent);
       }
+
       .timeline { position: relative; }
       .timeline::before {
-        content: ""; position: absolute; left: 18px; top: 6px; bottom: 6px;
-        width: 2px; background: linear-gradient(var(--accent), rgba(184,149,106,0.15));
+        content: ""; position: absolute; left: 18px; top: 10px; bottom: 10px;
+        width: 2px; background: linear-gradient(var(--accent), rgba(184,149,106,0.12));
       }
       .tl-item { position: relative; padding-left: 56px; }
       .tl-dot {
-        position: absolute; left: 9px; top: 26px; width: 20px; height: 20px;
+        position: absolute; left: 9px; top: 30px; width: 20px; height: 20px;
         border-radius: 50%; background: var(--cream); border: 2.5px solid var(--accent);
-        box-shadow: 0 0 0 4px rgba(184,149,106,0.12);
+        box-shadow: 0 0 0 5px rgba(184,149,106,0.1);
       }
       .role-badge {
         display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 11px;
-        letter-spacing: 1px; color: var(--accent); border: 1px solid rgba(184,149,106,0.5);
-        border-radius: 999px; padding: 2px 12px; background: rgba(255,253,248,0.7);
+        letter-spacing: 0.8px; color: var(--accent); border: 1px solid rgba(184,149,106,0.45);
+        border-radius: 999px; padding: 3px 13px; background: rgba(255,253,248,0.7);
       }
-      .honor-tag {
-        display: flex; align-items: center; gap: 10px;
-        font-family: "ZCOOL KuaiLe", cursive; font-size: 16px; letter-spacing: 1px;
+
+      .honor-card {
+        background: var(--cream);
+        border: 1px solid #eee8db;
+        border-radius: 16px 20px 18px 22px / 20px 16px 22px 18px;
+        padding: 22px 24px;
+        display: flex; align-items: center; gap: 14px;
+        position: relative;
+        overflow: hidden;
       }
-      .honor-tag .medal {
-        flex: none; width: 34px; height: 34px; border-radius: 50%;
+      .honor-card::before {
+        content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+        background: linear-gradient(180deg, var(--accent), rgba(184,149,106,0.2));
+      }
+      .honor-card .medal {
+        flex: none; width: 40px; height: 40px; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        background: var(--paper-sand); border: 1.5px solid rgba(184,149,106,0.45);
-        font-size: 15px;
+        background: var(--paper-sand); border: 1.5px solid rgba(184,149,106,0.4);
       }
-      .duty-item { position: relative; padding-left: 18px; }
+      .honor-card .honor-text {
+        font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive;
+        font-size: 16px; letter-spacing: 1px; color: var(--ink);
+      }
+
+      .practice-card {
+        background: var(--cream);
+        border: 1px solid #eee8db;
+        border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;
+        padding: 26px 24px;
+        position: relative;
+      }
+      .practice-card::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, rgba(184,149,106,0.5), rgba(184,149,106,0.15));
+      }
+      .duty-item { position: relative; padding-left: 18px; margin-bottom: 10px; }
+      .duty-item:last-child { margin-bottom: 0; }
       .duty-item::before {
-        content: ""; position: absolute; left: 2px; top: 11px; width: 6px; height: 6px;
+        content: ""; position: absolute; left: 2px; top: 10px; width: 5px; height: 5px;
         border-radius: 50%; background: var(--accent);
       }
+
+      .page-footer {
+        padding: 60px 0 40px; text-align: center;
+      }
+      .page-footer .footer-nav {
+        display: flex; justify-content: center; gap: 28px; margin-bottom: 24px; flex-wrap: wrap;
+      }
+      .page-footer .footer-nav a {
+        font-family: "JetBrains Mono", monospace; font-size: 11px;
+        letter-spacing: 1px; color: var(--ink-light); text-decoration: none; transition: color 0.2s;
+      }
+      .page-footer .footer-nav a:hover { color: var(--accent); }
+      .page-footer .back-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: 13px; color: var(--ink-soft);
+        border: 1.4px solid rgba(184,149,106,0.4); border-radius: 999px;
+        padding: 10px 24px; background: var(--cream);
+        text-decoration: none; transition: all 0.3s ease;
+      }
+      .page-footer .back-btn:hover {
+        color: var(--ink); border-color: var(--accent);
+        transform: translateY(-2px); box-shadow: 0 6px 20px rgba(90,70,40,0.1);
+      }
+      .page-footer .copyright {
+        margin-top: 28px; font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px; color: var(--soft); letter-spacing: 0.8px; opacity: 0.7;
+      }
+
       @media (max-width: 640px) {
-        .page-head h1 { font-size: 34px; }
-        .back-home { top: 14px; left: 14px; }
+        .page-head { padding-top: 90px; }
+        .page-head h1 { font-size: 38px; letter-spacing: 4px; }
+        .page-head .page-desc { font-size: 13px; padding: 0 20px; }
+        .back-home { top: 16px; left: 16px; }
         .timeline::before { left: 14px; }
         .tl-item { padding-left: 42px; }
         .tl-dot { left: 5px; }
@@ -117,92 +203,96 @@
     </style>
   </head>
   <body>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" id="cursorDot"></div>
     <a href="index.html" class="back-home"><img src="assets/icons/arrow-left.svg" alt="" style="width:14px;height:14px;display:block"/>BACK HOME 返回主页</a>
 
     <header class="page-head">
-      <div class="p-eyebrow"><img src="assets/icons/spark.svg" alt="" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:7px"/> campus experience</div>
+      <div class="p-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">Campus Experience · 2022 — 2026</div>
       <h1>校园经历</h1>
-      <svg class="mx-auto mt-1 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.35" style="max-width:70vw">
+      <p class="page-desc" style="font-family:'Caveat',cursive;font-size:20px;font-style:italic;color:var(--ink-light);margin-top:10px;">learning, growing, exploring.</p>
+      <svg class="mx-auto mt-5 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.3" style="max-width:70vw">
         <path d="M6,13 C26,3 46,3 66,13 C86,23 106,23 126,13 C146,3 166,3 186,13 C206,23 226,23 246,13 C266,3 286,3 306,13 C326,23 346,21 354,14" />
       </svg>
     </header>
 
-    <section class="py-14">
-      <div class="container mx-auto px-6 max-w-4xl space-y-14">
+    <section class="py-12">
+      <div class="container mx-auto px-6 max-w-3xl space-y-16">
 
+        <!-- 教育背景 -->
         <div class="reveal">
           <div class="section-title"><h2>教育背景</h2></div>
           <div class="timeline">
             <div class="tl-item">
               <span class="tl-dot"></span>
-              <div class="bg-white rounded-2xl border border-gray-100 p-6 md:p-8 card-hover">
-                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+              <div class="bg-white rounded-2xl border border-gray-100 p-7 card-hover" style="border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;">
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                   <h3 class="text-xl md:text-2xl">长春理工大学 · 本科</h3>
                   <span class="role-badge">2023.09 - 2027.07</span>
                 </div>
-                <p class="text-text-muted text-sm leading-relaxed mb-3">网络与新媒体（成绩排名Top10%）</p>
-                <p class="text-text-muted text-sm leading-relaxed">
-                  获得荣誉：长春大学生文旅创新创意大赛二等奖；两次三等奖学金、多次单项奖学金
+                <p class="text-sm leading-relaxed mb-3" style="color: var(--accent); font-weight: 500;">网络与新媒体（成绩排名Top10%）</p>
+                <p class="text-sm leading-relaxed" style="color: var(--ink-soft);">
+                  主修课程：新媒体运营、传播学概论、网络舆情分析、数据新闻、视觉传达设计等。在校期间积极参与学科竞赛与校园实践，持续提升专业能力与综合素养。
                 </p>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- 政治面貌 & 荣誉奖项 -->
         <div class="reveal">
-          <div class="section-title"><h2>政治面貌 &amp; 荣誉奖项</h2></div>
+          <div class="section-title"><h2>荣誉奖项</h2></div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white rounded-2xl border border-gray-100 p-6 card-hover">
-              <div class="honor-tag"><span class="medal"><img src="assets/icons/flag.svg" alt="" style="width:18px;height:18px;display:block"/></span>中共预备党员</div>
+            <div class="honor-card card-hover">
+              <span class="medal"><img src="assets/icons/flag.svg" alt="" style="width:18px;height:18px;display:block"/></span>
+              <span class="honor-text">中共预备党员</span>
             </div>
-            <div class="bg-white rounded-2xl border border-gray-100 p-6 card-hover">
-              <div class="honor-tag"><span class="medal"><img src="assets/icons/medal.svg" alt="" style="width:18px;height:18px;display:block"/></span>长春大学生文旅创新创意大赛 二等奖</div>
+            <div class="honor-card card-hover">
+              <span class="medal"><img src="assets/icons/medal.svg" alt="" style="width:18px;height:18px;display:block"/></span>
+              <span class="honor-text">长春大学生文旅创新创意大赛 二等奖</span>
             </div>
-            <div class="bg-white rounded-2xl border border-gray-100 p-6 card-hover">
-              <div class="honor-tag"><span class="medal"><img src="assets/icons/medal.svg" alt="" style="width:18px;height:18px;display:block"/></span>两次三等奖学金</div>
+            <div class="honor-card card-hover">
+              <span class="medal"><img src="assets/icons/medal.svg" alt="" style="width:18px;height:18px;display:block"/></span>
+              <span class="honor-text">两次三等奖学金</span>
             </div>
-            <div class="bg-white rounded-2xl border border-gray-100 p-6 card-hover">
-              <div class="honor-tag"><span class="medal"><img src="assets/icons/medal.svg" alt="" style="width:18px;height:18px;display:block"/></span>多次单项奖学金</div>
+            <div class="honor-card card-hover">
+              <span class="medal"><img src="assets/icons/medal.svg" alt="" style="width:18px;height:18px;display:block"/></span>
+              <span class="honor-text">多次单项奖学金</span>
             </div>
           </div>
         </div>
 
+        <!-- 校园实践 -->
         <div class="reveal">
           <div class="section-title"><h2>校园实践</h2></div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-2xl border border-gray-100 p-5 card-hover">
-              <div class="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
-                <div>
-                  <h3 class="text-lg mb-1">校园文艺赛事项目总负责人</h3>
-                  <p class="text-text-muted text-xs">2024.06 - 2025.07</p>
-                </div>
+            <div class="practice-card card-hover">
+              <div class="mb-3">
+                <h3 class="text-lg mb-1">校园文艺赛事项目总负责人</h3>
+                <p class="text-xs" style="color: var(--ink-light); font-family: 'JetBrains Mono', monospace;">2024.06 - 2025.07</p>
               </div>
-              <ul class="space-y-2 text-text-muted text-sm leading-relaxed">
+              <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
                 <li class="duty-item">统筹舞蹈大赛、团体操等活动，协调90余人团队完成全流程执行</li>
                 <li class="duty-item">独立负责活动策划、内容设计与排练计划制定</li>
                 <li class="duty-item">获校级一等奖1项、二等奖2项</li>
               </ul>
             </div>
-            <div class="bg-white rounded-2xl border border-gray-100 p-5 card-hover">
-              <div class="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
-                <div>
-                  <h3 class="text-lg mb-1">校园活动主持人</h3>
-                  <p class="text-text-muted text-xs">2023.09 - 至今</p>
-                </div>
+            <div class="practice-card card-hover">
+              <div class="mb-3">
+                <h3 class="text-lg mb-1">校园活动主持人</h3>
+                <p class="text-xs" style="color: var(--ink-light); font-family: 'JetBrains Mono', monospace;">2023.09 - 至今</p>
               </div>
-              <ul class="space-y-2 text-text-muted text-sm leading-relaxed">
+              <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
                 <li class="duty-item">担任毕业季晚会、校园彩虹跑等大型活动主持</li>
                 <li class="duty-item">具备较强的现场统筹、表达呈现与活动执行能力</li>
               </ul>
             </div>
-            <div class="bg-white rounded-2xl border border-gray-100 p-5 card-hover">
-              <div class="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
-                <div>
-                  <h3 class="text-lg mb-1">网络与新媒体专业 25 级副班主任</h3>
-                  <p class="text-text-muted text-xs">2025.09 - 至今</p>
-                </div>
+            <div class="practice-card card-hover">
+              <div class="mb-3">
+                <h3 class="text-lg mb-1">网络与新媒体专业 25 级副班主任</h3>
+                <p class="text-xs" style="color: var(--ink-light); font-family: 'JetBrains Mono', monospace;">2025.09 - 至今</p>
               </div>
-              <ul class="space-y-2 text-text-muted text-sm leading-relaxed">
+              <ul class="text-sm leading-relaxed" style="color: var(--ink-soft);">
                 <li class="duty-item">负责新生入学引导、日常答疑与班级事务协调</li>
                 <li class="duty-item">做好新生适应期陪伴与规划指导</li>
               </ul>
@@ -213,17 +303,60 @@
       </div>
     </section>
 
-    <footer class="py-12 text-center">
-      <a href="index.html" class="inline-flex items-center gap-2 text-sm text-text-muted hover:text-primary transition-colors border border-gray-200 rounded-full px-6 py-2.5 bg-white card-hover">
-        <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/> 返回思维导图首页
+    <footer class="page-footer">
+      <div class="footer-nav">
+        <a href="about.html" class="magnetic-btn">ABOUT</a>
+        <a href="internship.html" class="magnetic-btn">INTERNSHIP</a>
+        <a href="projects.html" class="magnetic-btn">PROJECTS</a>
+        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
+      </div>
+      <a href="index.html" class="back-btn">
+        <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/>
+        返回思维导图首页
       </a>
-      <p class="mt-6 text-text-muted text-xs opacity-70">© 2026 王佳欣</p>
+      <p class="copyright">© 2026 WANG JIAXIN · ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
+      // ==== 自定义光标 ====
+      const cursorDot = document.getElementById('cursorDot');
+      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursorDot.style.left = cursorX + 'px';
+        cursorDot.style.top = cursorY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, .honor-card, .timeline-item, .magnetic-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+      });
+
+      // ==== 磁性按钮 ====
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+          btn.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1)';
+        });
+        btn.addEventListener('mouseenter', () => { btn.style.transition = 'none'; });
+      });
+
       const observer = new IntersectionObserver(function (entries) {
-        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("active"); });
-      }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add("active"), index * 80);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     </script>
   </body>

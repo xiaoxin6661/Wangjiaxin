@@ -56,6 +56,104 @@
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
 
+      /* ==== 自定义光标 ==== */
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background: var(--accent); border-radius: 50%; pointer-events: none;
+        z-index: 10001; transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
+      }
+      .cursor-dot.hover {
+        width: 24px; height: 24px; background: transparent;
+        border: 2px solid var(--accent);
+      }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
+
+      /* ==== Ballpit 球池粒子画布 ==== */
+      #ballpit-canvas {
+        position: fixed; inset: 0; z-index: 0; pointer-events: none;
+        opacity: 0.3;
+      }
+
+      /* ==== 磁性按钮 ==== */
+      .magnetic-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .magnetic-btn::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+        background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+      }
+      .magnetic-btn:hover { color: var(--ink); }
+      .magnetic-btn:hover::after { transform: scaleX(1); }
+
+      /* ==== 左上角 Hero 个人介绍区 ==== */
+      .hero-corner {
+        position: fixed;
+        top: 48px;
+        left: 52px;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 0;
+        animation: heroFadeIn 1s ease 0.3s forwards;
+      }
+      @keyframes heroFadeIn {
+        to { opacity: 1; }
+      }
+      .hero-corner .hero-name {
+        font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive;
+        font-size: 52px;
+        font-weight: 400;
+        letter-spacing: 4px;
+        color: var(--ink);
+        line-height: 1.1;
+      }
+      .hero-corner .hero-name .latin {
+        font-family: "Caveat", cursive;
+        font-size: 0.55em;
+        color: var(--accent);
+        font-style: italic;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: block;
+        margin-bottom: 2px;
+      }
+      .hero-corner .hero-subtitle {
+        font-family: "LXGW WenKai", "ZCOOL XiaoWei", "PingFang SC", sans-serif;
+        font-size: 15px;
+        color: var(--ink-soft);
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
+      .hero-corner .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+        max-width: 280px;
+      }
+      .hero-corner .hero-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.8px;
+        color: var(--accent);
+        border: 1px solid rgba(184, 149, 106, 0.4);
+        border-radius: 999px;
+        padding: 3px 11px;
+        background: rgba(255, 253, 248, 0.6);
+      }
+      .hero-corner .hero-line {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        margin-top: 18px;
+        border-radius: 2px;
+      }
+
       /* ==== 可复用工具类：图片占位（淡米黄圆角矩形 + 手绘边框）==== */
       .ph-placeholder {
         position: relative;
@@ -126,8 +224,8 @@
       /* ---- the head ---- */
       #head {
         position: absolute;
-        left: 50%;
-        top: 50%;
+        left: 52%;
+        top: 52%;
         transform: translate(-50%, -50%);
         z-index: 4;
         text-align: center;
@@ -323,7 +421,8 @@
         pointer-events: none;
         transition:
           opacity 0.3s ease,
-          transform 0.5s cubic-bezier(0.2, 0.8, 0.25, 1.25);
+          transform 0.5s cubic-bezier(0.2, 0.8, 0.25, 1.25),
+          box-shadow 0.3s ease;
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
       }
 
@@ -332,6 +431,10 @@
         transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
           scale(1);
         pointer-events: auto;
+      }
+
+      #head .synapse-label:hover {
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
       }
 
       #head .synapse-label .title-row {
@@ -552,6 +655,75 @@
         animation: sway4 6.1s ease-in-out 0.25s infinite;
       }
 
+      /* ==== 底部统一页脚 ==== */
+      .site-footer {
+        position: fixed;
+        bottom: 28px;
+        left: 52px;
+        right: 52px;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        pointer-events: none;
+        opacity: 0;
+        animation: heroFadeIn 1s ease 0.6s forwards;
+      }
+      .site-footer .footer-left {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--soft);
+        letter-spacing: 0.8px;
+        line-height: 1.8;
+      }
+      .site-footer .footer-left a {
+        color: var(--ink-soft);
+        text-decoration: none;
+        pointer-events: auto;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .site-footer .footer-left a:hover {
+        border-bottom-color: var(--accent);
+      }
+      .site-footer .footer-right {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .site-footer .footer-right a {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--soft);
+        text-decoration: none;
+        letter-spacing: 0.8px;
+        pointer-events: auto;
+        position: relative;
+        transition: color 0.2s;
+      }
+      .site-footer .footer-right a:hover {
+        color: var(--ink);
+      }
+      .site-footer .footer-right a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        height: 1px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s;
+      }
+      .site-footer .footer-right a:hover::after {
+        transform: scaleX(1);
+      }
+      body.open .site-footer {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
       footer {
         position: fixed;
         bottom: 22px;
@@ -573,6 +745,31 @@
 
       /* ---- mobile ---- */
       @media (max-width: 640px) {
+        .hero-corner {
+          top: 28px;
+          left: 24px;
+        }
+        .hero-corner .hero-name {
+          font-size: 36px;
+        }
+        .hero-corner .hero-subtitle {
+          font-size: 13px;
+        }
+        .hero-corner .hero-tags {
+          max-width: 200px;
+        }
+        .site-footer {
+          left: 24px;
+          right: 24px;
+          bottom: 20px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+        #head {
+          left: 50%;
+          top: 55%;
+        }
         #head .skull {
           width: 150px;
           height: 150px;
@@ -1018,18 +1215,35 @@
     </style>
   </head>
   <body>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <!-- Ballpit 球池粒子画布 -->
+    <canvas id="ballpit-canvas"></canvas>
+
+    <!-- ==== 左上角 Hero 个人介绍区 ==== -->
+    <div class="hero-corner">
+      <div class="hero-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;opacity:0.9;">AI Product Manager · Portfolio 2026</div>
+      <div class="hero-name">
+        <span class="latin">Wang Jiaxin</span>
+        王佳欣
+      </div>
+      <div class="hero-subtitle">产品运营 · AI 产品实践者 · Vibe Coding</div>
+      <div class="hero-tags">
+        <span class="hero-tag">VIBE CODING</span>
+        <span class="hero-tag">产品运营</span>
+        <span class="hero-tag">AI TOOLS</span>
+      </div>
+      <div class="hero-line"></div>
+    </div>
+
     <!-- ==== 手绘涂鸦装饰层（喜茶风 · 细黑线）==== -->
     <div id="doodle-scene" aria-hidden="true">
-      <!-- 右侧：梯子搬在头像右侧，小人正往上爬（呼应页面真实交互：点击头像可以“掉盖”） -->
-      <!-- 右侧：梯子搬在头像右侧，小人正往上爬（呼应页面真实交互：点击头像可以“掉盖”） -->
+      <!-- 右侧：梯子搬在头像右侧，小人正往上爬（呼应页面真实交互：点击头像可以"掉盖"） -->
       <div class="dood" style="left: calc(50% + 92px); top: calc(50% - 58px); --op: 0.85; animation-delay: 0.15s">
         <svg width="66" height="150" viewBox="0 0 66 150" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <!-- 梯子两根斜杆（靠头像一侧，基部在右下方落地） -->
           <path d="M56,146 C42,110 26,55 8,15" stroke-width="1.9" />
           <path d="M64,140 C50,104 33,50 17,9" stroke-width="1.9" />
-          <!-- 梯横档 -->
           <path d="M55.5,120 L62,118.5 M46,96 L52.5,94.5 M37.5,72 L44,70.8 M29,48 L35.5,47" stroke-width="1.6" />
-          <!-- 爬梯子的小人：空心圆头+短躯干+弯臂抄档+屈腿 -->
           <path d="M47,88 C50,87.3 52.3,89.5 52,92.3 C51.7,95 49,96.6 46.5,96 C44,95.3 42.7,92.8 43.3,90.3 C43.8,88.3 45.3,88.3 47,88 Z" stroke-width="1.6" />
           <path d="M47.3,96.3 L45.5,102" stroke-width="1.5" />
           <path d="M45.5,102 C41,101 39,98.5 38.3,95" stroke-width="1.5" />
@@ -1042,18 +1256,12 @@
       <!-- 左侧：弯腰探头往里看的小人（呼应 Pick My Brain —— 好奇地揢头探脑） -->
       <div class="dood" style="left: calc(50% - 172px); top: calc(50% - 38px); --op: 0.85; animation-delay: 0.35s">
         <svg width="78" height="92" viewBox="0 0 78 92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <!-- 圆头（前倾） -->
           <path d="M58,20.5 C62.3,20 65.3,23.3 64.8,27.5 C64.3,31.7 60.5,34.3 56.5,33.5 C52.5,32.7 50.3,29 51,25 C51.7,21.5 54.5,21 58,20.5 Z" stroke-width="1.7" />
-          <!-- 短颈 -->
           <path d="M55.5,33.5 L52,37.5" stroke-width="1.7" />
-          <!-- 梯形身体（前倾倒向头像一侧） -->
           <path d="M52,37.5 L59,39 L55,51.5 L45.5,49 Z" stroke-width="2.1" />
-          <!-- 伸向头像方向的手臂 -->
           <path d="M57,39.5 C62,42.5 65,46.5 66,51.5" stroke-width="1.6" />
-          <!-- 后腿（直）带脚尖转折 -->
           <path d="M46,49 L38,72.5" stroke-width="1.8" />
           <path d="M38,72.5 L31,75" stroke-width="1.7" />
-          <!-- 前腿（弯）带脚尖转折 -->
           <path d="M50,50 C54,58 53,65.5 49,72.5" stroke-width="1.8" />
           <path d="M49,72.5 L55.5,74.5" stroke-width="1.7" />
         </svg>
@@ -1377,6 +1585,19 @@
       </div>
     </div>
 
+    <!-- ==== 底部统一页脚 ==== -->
+    <div class="site-footer">
+      <div class="footer-left">
+        <a href="mailto:464501911@qq.com">464501911@qq.com</a><br />
+        © 2026 Wang Jiaxin · All rights reserved
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
+        <a href="about.html" class="magnetic-btn">ABOUT</a>
+        <a href="internship.html" class="magnetic-btn">WORK</a>
+      </div>
+    </div>
+
     <!-- ==== 简历内容弹层 ==== -->
     <div id="panel-overlay">
       <!-- About -->
@@ -1397,7 +1618,6 @@
           <span class="tag">CET-4</span>
         </div>
         <svg class="about-doodle-figure" width="54" height="54" viewBox="0 0 54 54" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round">
-          <!-- 小人举旗牌（呼应标签“贴上去”的动作） -->
           <path d="M14,15.5 C17.5,15 20,17.7 19.5,21 C19,24.3 15.7,26.3 12.5,25.5 C9.3,24.7 7.5,21.5 8.3,18.5 C9,16 11.5,16 14,15.5 Z" stroke-width="1.6" />
           <path d="M13,25.5 L11,32 L15,44 M11,32 L18,33" stroke-width="1.6" />
           <path d="M15,44 L10,48 M15,44 L20,47.5" stroke-width="1.6" />
@@ -1416,7 +1636,6 @@
         <button class="p-close" aria-label="关闭">✕</button>
         <div class="p-eyebrow"><img src="assets/icons/spark.svg" alt="" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:7px"/> projects</div>
         <div class="p-title">项目作品</div>
-        <!-- 手绘波浪连接线 -->
         <div class="collage-line" aria-hidden="true">
           <svg viewBox="0 0 500 28" preserveAspectRatio="none">
             <path d="M10,14 Q60,4 110,14 T210,14 T310,14 T410,14 T490,14"
@@ -1549,6 +1768,104 @@
     </div>
 
     <script>
+      // ==== 自定义光标 ====
+      const cursorDot = document.getElementById('cursorDot');
+      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursorDot.style.left = cursorX + 'px';
+        cursorDot.style.top = cursorY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, .synapse-label, #head, .magnetic-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+      });
+
+      // ==== 磁性按钮 ====
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+          btn.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1)';
+        });
+        btn.addEventListener('mouseenter', () => {
+          btn.style.transition = 'none';
+        });
+      });
+
+      // ==== Ballpit 球池粒子 ====
+      (function() {
+        const canvas = document.getElementById('ballpit-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        function resize() {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const colors = ['#f3e4e6', '#e9e4f0', '#f5ecd4', '#e5eaf0', '#dfe8de', '#f0e6d8'];
+        const balls = [];
+        const BALL_COUNT = 18;
+        for (let i = 0; i < BALL_COUNT; i++) {
+          balls.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            r: 8 + Math.random() * 18,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+
+        let mousePX = -1000, mousePY = -1000;
+        document.addEventListener('mousemove', (e) => { mousePX = e.clientX; mousePY = e.clientY; });
+
+        function animate() {
+          ctx.clearRect(0, 0, W, H);
+          balls.forEach(b => {
+            // 鼠标排斥
+            const dx = b.x - mousePX, dy = b.y - mousePY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              const force = (120 - dist) / 120 * 0.8;
+              b.vx += (dx / dist) * force;
+              b.vy += (dy / dist) * force;
+            }
+            // 阻尼
+            b.vx *= 0.98; b.vy *= 0.98;
+            // 移动
+            b.x += b.vx; b.y += b.vy;
+            // 边界反弹
+            if (b.x < b.r) { b.x = b.r; b.vx *= -0.7; }
+            if (b.x > W - b.r) { b.x = W - b.r; b.vx *= -0.7; }
+            if (b.y < b.r) { b.y = b.r; b.vy *= -0.7; }
+            if (b.y > H - b.r) { b.y = H - b.r; b.vy *= -0.7; }
+            // 绘制
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fillStyle = b.color;
+            ctx.globalAlpha = 0.6;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          });
+          requestAnimationFrame(animate);
+        }
+        // 移动端不启动球池
+        if (window.innerWidth > 768) animate();
+      })();
+
       const head = document.getElementById("head");
       let opened = false;
 
@@ -1747,4 +2064,3 @@
     </script>
   </body>
 </html>
-
