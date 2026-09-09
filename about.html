@@ -37,6 +37,35 @@
         content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
+
+      /* ==== 自定义光标 ==== */
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background: var(--accent); border-radius: 50%; pointer-events: none;
+        z-index: 10001; transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
+      }
+      .cursor-dot.hover {
+        width: 24px; height: 24px; background: transparent;
+        border: 2px solid var(--accent);
+      }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
+
+      /* ==== 磁性按钮 ==== */
+      .magnetic-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
+        color: var(--ink-soft); text-decoration: none;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .magnetic-btn::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+        background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+      }
+      .magnetic-btn:hover { color: var(--ink); }
+      .magnetic-btn:hover::after { transform: scaleX(1); }
       body .bg-white { background-color: var(--cream); }
       h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
       .card-hover { transition: all 0.35s cubic-bezier(0.2, 0.8, 0.25, 1); }
@@ -68,6 +97,7 @@
         max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.9;
       }
 
+      /* 个人陈述大段落 */
       .statement-card {
         background: var(--cream);
         border: 1px solid #eee8db;
@@ -194,12 +224,14 @@
     </style>
   </head>
   <body>
+    <!-- 自定义光标 -->
+    <div class="cursor-dot" id="cursorDot"></div>
     <a href="index.html" class="back-home"><img src="assets/icons/arrow-left.svg" alt="" style="width:14px;height:14px;display:block"/>BACK HOME 返回主页</a>
 
     <header class="page-head">
-      <div class="p-eyebrow"><img src="assets/icons/spark.svg" alt="" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:7px"/> about me</div>
+      <div class="p-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">About Me · 2026</div>
       <h1>关于我</h1>
-      <p class="page-desc">产品运营 / AI 产品实践者，相信设计与数据的力量，在真实业务中持续学习与成长。</p>
+      <p class="page-desc" style="font-family:'Caveat',cursive;font-size:20px;font-style:italic;color:var(--ink-light);margin-top:10px;">still learning, still building.</p>
       <svg class="mx-auto mt-5 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.3" style="max-width:70vw">
         <path d="M6,13 C26,3 46,3 66,13 C86,23 106,23 126,13 C146,3 166,3 186,13 C206,23 226,23 246,13 C266,3 286,3 306,13 C326,23 346,21 354,14" />
       </svg>
@@ -208,16 +240,24 @@
     <section class="py-12">
       <div class="container mx-auto px-6 max-w-3xl space-y-16">
 
+        <!-- 个人陈述 -->
         <div class="reveal">
           <div class="statement-card card-hover">
             <div class="quote-mark">"</div>
-            <p>嗨，我是佳欣，一名在读大四学生，热爱旅游、二次元，也热爱用设计来解决问题、表达思想。</p>
-            <p>从内容运营到产品运营，我在小红书、百度等真实业务场景中打磨自己的判断力与执行力。我相信AI是工具，人是主导——擅长借助AI提效，但始终保持对输出质量的把控与关键决策的判断。</p>
-            <p>业余时间喜欢用Vibe Coding捣鼓一些小项目，从求职助手到达人管理工作台，享受从0到1把想法变成现实的过程。still learning, still building.</p>
+            <p>
+              嗨，我是佳欣，一名在读大四学生，热爱旅游、二次元，也热爱用设计来解决问题、表达思想。
+            </p>
+            <p>
+              从内容运营到产品运营，我在小红书、百度等真实业务场景中打磨自己的判断力与执行力。我相信AI是工具，人是主导——擅长借助AI提效，但始终保持对输出质量的把控与关键决策的判断。
+            </p>
+            <p>
+              业余时间喜欢用Vibe Coding捣鼓一些小项目，从求职助手到达人管理工作台，享受从0到1把想法变成现实的过程。still learning, still building.
+            </p>
             <div class="signature">— Jiaxin</div>
           </div>
         </div>
 
+        <!-- 个人信息 -->
         <div class="reveal">
           <div class="section-title"><h2>个人信息</h2></div>
           <div class="bg-white rounded-2xl border border-gray-100 px-7 md:px-9 py-3 card-hover" style="border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;">
@@ -240,6 +280,7 @@
           </div>
         </div>
 
+        <!-- 所备技能 -->
         <div class="reveal">
           <div class="section-title"><h2>所备技能</h2></div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -266,10 +307,10 @@
 
     <footer class="page-footer">
       <div class="footer-nav">
-        <a href="internship.html">INTERNSHIP</a>
-        <a href="projects.html">PROJECTS</a>
-        <a href="campus.html">CAMPUS</a>
-        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener">GITHUB</a>
+        <a href="internship.html" class="magnetic-btn">INTERNSHIP</a>
+        <a href="projects.html" class="magnetic-btn">PROJECTS</a>
+        <a href="campus.html" class="magnetic-btn">CAMPUS</a>
+        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
       </div>
       <a href="index.html" class="back-btn">
         <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/>
@@ -279,6 +320,38 @@
     </footer>
 
     <script>
+      // ==== 自定义光标 ====
+      const cursorDot = document.getElementById('cursorDot');
+      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursorDot.style.left = cursorX + 'px';
+        cursorDot.style.top = cursorY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, .skill-card, .magnetic-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+      });
+
+      // ==== 磁性按钮 ====
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+          btn.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1)';
+        });
+        btn.addEventListener('mouseenter', () => { btn.style.transition = 'none'; });
+      });
+
       const observer = new IntersectionObserver(function (entries) {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
