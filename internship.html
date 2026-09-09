@@ -1,966 +1,819 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>实习经历 — 王佳欣</title>
-    <script src="tailwindcss.js"></script>
-    <link href="fonts/local-a49ae44d.css" rel="stylesheet" />
-    <link rel="stylesheet" href="fonts/local-511fb728.css" />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#1a1a1a",
-              accent: "#002fa7",      /* 克莱因蓝 */
-              klein: "#002fa7",
-              light: "#FFFDF8",
-              dark: "#1a1a1a",
-              "text-muted": "#6a6a6a",
-            },
-            fontFamily: {
-              sans: ['"LXGW WenKai"', '"ZCOOL XiaoWei"', '"PingFang SC"', "system-ui", "sans-serif"],
-              title: ['"ZCOOL KuaiLe"', '"LXGW WenKai"', "cursive"],
-              mono: ['"JetBrains Mono"', "monospace"],
-              hand: ['"Caveat"', "cursive"],
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      :root {
-        --bg: #faf9f7;            /* light cream */
-        --ink: #1a1a1a;           /* main text */
-        --ink-soft: #3a3a3a;      /* secondary text */
-        --ink-light: #6a6a6a;     /* light text */
-        --line: #d5d0c8;
-        --accent: #002fa7;        /* 克莱因蓝 */
-        --klein: #002fa7;
-        --klein-soft: #4a6dd1;
-        --klein-deep: #001f6e;
-        --cream: #fffdf8;
-        --paper-sand: #f4f1ea;
-        /* Morandi accents for washi tape */
-        --morandi-1: #b8b5a8;
-        --morandi-2: #c9b8a6;
-        --morandi-3: #a3b5c0;
-        --morandi-4: #d4c2b1;
-      }
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { overflow-x: clip; }
-      body {
-        background: var(--bg); color: var(--ink);
-        font-family: "LXGW WenKai", "ZCOOL XiaoWei", "PingFang SC", system-ui, sans-serif;
-        overflow-x: hidden; scroll-behavior: smooth;
-        cursor: none;
-      }
-      /* 噪点纹理叠加（与其他页面一致） */
-      body::after {
-        content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      }
-      body .bg-white { background-color: var(--cream); }
-      h1, h2, h3 { font-family: "ZCOOL KuaiLe", "LXGW WenKai", cursive; font-weight: 400; }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实习经历 — 王佳欣</title>
+  <link href="fonts/local-a49ae44d.css" rel="stylesheet">
+  <link href="fonts/local-511fb728.css" rel="stylesheet">
+  <style>
+    /* ===== 全局变量 ===== */
+    :root {
+      --klein: #002fa7;
+      --klein-rgb: 0, 47, 167;
+      --klein-light: rgba(0,47,167,0.06);
+      --klein-mid: rgba(0,47,167,0.12);
+      --ink: #1a1a1a;
+      --ink-soft: #3a3a3a;
+      --ink-light: #8a8a8a;
+      --ink-faint: rgba(0,0,0,0.35);
+      --bg: #faf9f7;
+      --card: #ffffff;
+      --line: rgba(0,0,0,0.06);
+      --line-strong: rgba(0,0,0,0.1);
+      --font-serif: Georgia, "Times New Roman", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      --font-mono: "JetBrains Mono", "LXGW WenKai Mono", "Consolas", monospace;
+      --font-script: "Caveat", "LXGW WenKai", cursive;
+      --font-cn: "LXGW WenKai", "Hanken Grotesk", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
 
-      /* ============== 1. SplashCursor 水花光标 ============== */
-      .cursor-dot {
-        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
-        background: var(--klein); border-radius: 50%; pointer-events: none;
-        z-index: 10010; transform: translate(-50%, -50%);
-        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
-      }
-      .cursor-dot.hover {
-        width: 24px; height: 24px; background: transparent;
-        border: 2px solid var(--klein);
-      }
-      #splashCanvas {
-        position: fixed; inset: 0; pointer-events: none; z-index: 10000;
-      }
-      @media (max-width: 768px) {
-        body { cursor: auto; }
-        .cursor-dot { display: none; }
-        #splashCanvas { display: none; }
-      }
+    /* ===== 全局重置 ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-cn);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    img { max-width: 100%; display: block; }
 
-      /* ============== 返回主页按钮 ============== */
-      .back-home {
-        position: fixed; top: 24px; left: 28px; z-index: 50;
-        display: inline-flex; align-items: center; gap: 6px;
-        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
-        color: var(--ink-soft); text-decoration: none;
-        background: rgba(255, 253, 248, 0.9);
-        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-        border: 1.4px solid rgba(0, 47, 167, 0.28); border-radius: 999px;
-        padding: 9px 18px 9px 15px; box-shadow: 0 4px 16px rgba(0, 47, 167, 0.08);
-        transform: rotate(-1deg); transition: all 0.3s ease;
-      }
-      .back-home:hover { color: var(--klein); border-color: var(--klein); transform: rotate(0deg) translateY(-2px); }
-      .back-home img { width: 14px; height: 14px; display: block; }
+    /* ===== 页面通用布局 ===== */
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .page-header { text-align: center; padding: 110px 0 50px; }
+    .page-eyebrow {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--klein); margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: var(--font-serif); font-size: 56px; font-weight: 600;
+      color: var(--ink); letter-spacing: 4px; margin-bottom: 16px; line-height: 1.1;
+    }
+    .page-subtitle {
+      font-family: var(--font-script); font-size: 24px; font-style: italic;
+      color: var(--ink-light); margin-bottom: 10px;
+    }
+    .page-desc { font-size: 14px; color: var(--ink-light); max-width: 520px; margin: 0 auto; line-height: 1.8; }
 
-      /* ============== 页面头部 ============== */
-      .page-head { padding: 110px 24px 28px; text-align: center; position: relative; }
-      .page-head .p-eyebrow {
-        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 2.5px;
-        color: var(--klein); text-transform: uppercase; margin-bottom: 10px;
-      }
-      .page-head h1 {
-        font-size: 60px; letter-spacing: 6px; color: var(--ink);
-        line-height: 1.1; display: inline-block; cursor: default;
-      }
-      .page-head .page-desc {
-        font-family: "Caveat", cursive; font-size: 22px; font-style: italic;
-        color: var(--ink-light); margin-top: 10px;
-      }
-      .page-head .head-underline {
-        display: block; margin: 14px auto 0; max-width: 360px;
-        opacity: 0.35;
-      }
+    /* ===== 返回首页按钮 ===== */
+    .back-home {
+      position: fixed; top: 28px; left: 32px; z-index: 100;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--line); border-radius: 100px;
+      padding: 10px 20px; transition: all 0.3s ease;
+    }
+    .back-home:hover { color: var(--klein); border-color: var(--klein-mid); box-shadow: 0 4px 20px rgba(0,47,167,0.08); }
 
-      /* ============== 磁性按钮 ============== */
-      .magnetic-btn {
-        display: inline-flex; align-items: center; gap: 6px;
-        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
-        color: var(--ink-soft); text-decoration: none;
-        position: relative; transition: color 0.2s;
-        will-change: transform;
-      }
-      .magnetic-btn::after {
-        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
-        background: var(--klein); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
-      }
-      .magnetic-btn:hover { color: var(--klein); }
-      .magnetic-btn:hover::after { transform: scaleX(1); }
+    /* ===== 底部上一页/下一页导航 ===== */
+    .page-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 900px; margin: 70px auto 30px; padding: 0 40px;
+    }
+    .page-nav-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+      letter-spacing: 1.5px; color: var(--ink-soft); background: var(--card);
+      border: 1px solid var(--line); border-radius: 12px; padding: 14px 24px;
+      transition: all 0.3s ease;
+    }
+    .page-nav-btn:hover {
+      color: var(--klein); border-color: var(--klein-mid);
+      box-shadow: 0 6px 24px rgba(0,47,167,0.08); transform: translateY(-2px);
+    }
+    .page-nav-center {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-light);
+    }
 
-      /* ============== 照片扇形堆叠区 ============== */
-      .fan-section {
-        position: relative; height: 320vh; /* 给滚动留出范围 */
-      }
-      .fan-sticky {
-        position: sticky; top: 0; height: 100vh;
-        display: flex; align-items: center; justify-content: center;
-        perspective: 2200px;
-        overflow: hidden;
-      }
-      .fan-stage {
-        position: relative; width: 100%; height: 100%;
-        display: flex; align-items: center; justify-content: center;
-      }
-      .fan-hint {
-        position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
-        font-family: "JetBrains Mono", monospace; font-size: 10.5px;
-        letter-spacing: 2px; color: var(--ink-light); text-transform: uppercase;
-        opacity: 0.7; pointer-events: none;
-        display: flex; align-items: center; gap: 8px;
-      }
-      .fan-hint .scroll-dot {
-        display: inline-block; width: 5px; height: 5px; border-radius: 50%;
-        background: var(--klein); animation: pulse 1.6s ease-in-out infinite;
-      }
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.6; }
-        50% { transform: scale(1.8); opacity: 1; }
-      }
+    /* ===== 页脚 ===== */
+    .page-footer {
+      text-align: center; padding: 40px 0 60px;
+      border-top: 1px solid var(--line); margin-top: 30px;
+    }
+    .footer-links {
+      display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      letter-spacing: 1.5px; color: var(--ink-light); transition: color 0.3s; position: relative;
+    }
+    .footer-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px;
+      background: var(--klein); transition: width 0.3s;
+    }
+    .footer-links a:hover { color: var(--klein); }
+    .footer-links a:hover::after { width: 100%; }
+    .footer-copy {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+      color: var(--ink-light); opacity: 0.6;
+    }
 
-      .fan-container {
-        position: relative; width: 100%; height: 100%;
-        transform-style: preserve-3d;
-      }
+    /* ===== 照片占位框 ===== */
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--klein-light) 0%, #e8eaf0 50%, var(--klein-light) 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; color: var(--ink-light); font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .photo-placeholder svg { width: 32px; height: 32px; opacity: 0.4; }
 
-      /* 实习卡片 */
-      .intern-card {
-        position: absolute; top: 50%; left: 50%;
-        width: 320px; height: 440px;
-        margin-left: -160px; margin-top: -220px;
-        background: var(--cream);
-        border-radius: 22px 26px 24px 28px / 26px 22px 28px 24px;
-        box-shadow: 0 14px 40px rgba(0, 47, 167, 0.12),
-                    0 4px 12px rgba(0,0,0,0.06);
-        overflow: hidden; cursor: pointer;
-        transform-origin: center center;
-        transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.25, 1),
-                    box-shadow 0.4s ease,
-                    border-radius 0.4s ease;
-        will-change: transform;
-        border: 1.5px solid rgba(0, 47, 167, 0.12);
-      }
-      /* Washi 胶带装饰 */
-      .intern-card::before {
-        content: ""; position: absolute; top: -10px; left: 32px;
-        width: 70px; height: 18px;
-        background: linear-gradient(135deg, var(--morandi-2), rgba(201,184,166,0.4));
-        border-radius: 3px; transform: rotate(-7deg);
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        z-index: 3;
-      }
-      .intern-card::after {
-        content: ""; position: absolute; top: -8px; right: 28px;
-        width: 56px; height: 16px;
-        background: linear-gradient(120deg, var(--morandi-3), rgba(163,181,192,0.35));
-        border-radius: 3px; transform: rotate(6deg);
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        z-index: 3;
-      }
-      .intern-card:hover {
-        transform: translate(var(--tx, 0), calc(var(--ty, 0) - 10px)) rotate(0deg) !important;
-        box-shadow: 0 28px 60px rgba(0, 47, 167, 0.22),
-                    0 8px 20px rgba(0,0,0,0.08);
-        z-index: 50 !important;
-      }
+    /* ===== 扇形堆叠舞台 ===== */
+    .fan-section { padding: 30px 0 20px; }
+    .fan-stage {
+      position: relative; width: 100%; max-width: 1100px; height: 480px;
+      margin: 0 auto; perspective: 1500px;
+    }
+    .fan-card-wrapper {
+      position: absolute; left: 50%; top: 20px;
+      width: 280px; height: 400px; margin-left: -140px;
+      transform-origin: center bottom;
+      transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  filter 0.5s ease, opacity 0.5s ease, box-shadow 0.4s ease;
+      cursor: pointer; transform-style: preserve-3d; will-change: transform;
+    }
+    .fan-card-wrapper:hover { z-index: 100 !important; filter: brightness(1.05); }
+    .fan-flip-card {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .fan-card-wrapper.flipped .fan-flip-card { transform: rotateY(180deg); }
+    .fan-flip-face {
+      position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      overflow: hidden; background: var(--card);
+    }
+    .fan-flip-front { padding: 10px; display: flex; flex-direction: column; }
+    .fan-photo { width: 100%; height: 210px; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+    .fan-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .fan-info { padding: 14px 8px 10px; flex: 1; display: flex; flex-direction: column; }
+    .fan-year {
+      font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+      color: var(--klein); letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .fan-title {
+      font-family: var(--font-serif); font-size: 22px; font-weight: 600;
+      color: var(--ink); margin-bottom: 3px; line-height: 1.2; letter-spacing: 1px;
+    }
+    .fan-subtitle { font-size: 12px; color: var(--ink-light); margin-bottom: 8px; line-height: 1.4; }
+    .fan-desc {
+      font-size: 11.5px; color: var(--ink-soft); line-height: 1.65; flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .fan-location {
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line);
+      font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 1.5px;
+      color: var(--ink-light); text-transform: uppercase;
+    }
+    .fan-flip-back {
+      transform: rotateY(180deg); padding: 28px 24px;
+      display: flex; flex-direction: column; justify-content: flex-start; overflow-y: auto;
+    }
+    .fan-back-header { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .fan-back-title {
+      font-family: var(--font-serif); font-size: 22px; font-weight: 600;
+      color: var(--klein); margin-bottom: 4px; letter-spacing: 1px;
+    }
+    .fan-back-subtitle {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+      color: var(--ink-light); text-transform: uppercase;
+    }
+    .fan-back-list { list-style: none; padding: 0; }
+    .fan-back-list li {
+      font-size: 12.5px; line-height: 1.75; color: var(--ink-soft);
+      padding-left: 20px; position: relative; margin-bottom: 12px;
+    }
+    .fan-back-list li::before {
+      content: "→"; position: absolute; left: 0; color: var(--klein);
+      font-weight: 700; font-size: 12px;
+    }
+    .fan-hint {
+      text-align: center; font-family: var(--font-mono); font-size: 10px;
+      color: var(--ink-light); letter-spacing: 2px; margin-top: 16px;
+      text-transform: uppercase; opacity: 0.7;
+    }
 
-      /* 卡片照片区 */
-      .card-photo {
-        position: relative; height: 50%; overflow: hidden;
-      }
-      .photo-placeholder {
-        height: 100%; width: 100%;
-        background: linear-gradient(135deg, #002fa7 0%, #1a4dc1 50%, #4a7ddf 100%);
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        color: rgba(255,255,255,0.9); position: relative;
-      }
-      .photo-placeholder::after {
-        content: ""; position: absolute; inset: 0;
-        background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.18), transparent 55%),
-                    radial-gradient(circle at 75% 80%, rgba(255,255,255,0.08), transparent 50%);
-      }
-      .photo-emoji { font-size: 38px; margin-bottom: 8px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
-      .photo-label {
-        font-family: "JetBrains Mono", monospace; font-size: 10.5px;
-        letter-spacing: 1.2px; opacity: 0.9; position: relative; z-index: 1;
-      }
-      .photo-zoom-hint {
-        position: absolute; bottom: 10px; right: 12px; z-index: 2;
-        font-family: "JetBrains Mono", monospace; font-size: 9.5px;
-        color: rgba(255,255,255,0.7); letter-spacing: 0.8px;
-        background: rgba(0,0,0,0.15); padding: 3px 8px; border-radius: 999px;
-        backdrop-filter: blur(4px);
-      }
+    /* ===== 弧形时间轴 ===== */
+    .dial-section { padding: 20px 0 40px; }
+    .dial-wrapper { position: relative; max-width: 1100px; margin: 0 auto; }
+    .dial-clock { position: relative; width: 100%; height: 220px; overflow: hidden; }
+    .dial-arc-outer {
+      position: absolute; top: 50px; left: 50%; width: 900px; height: 900px;
+      transform: translateX(-50%); border-radius: 50%;
+      border: 2px solid var(--klein-light); pointer-events: none;
+    }
+    .dial-arc-center {
+      position: absolute; top: 52px; left: 50%; width: 896px; height: 896px;
+      transform: translateX(-50%); pointer-events: none;
+    }
+    .dial-arc {
+      position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+      border-radius: 50%; border: 1.5px solid var(--line);
+    }
+    .dial-tick {
+      position: absolute; top: 0; left: 50%; width: 1px; height: 10px;
+      margin-left: -0.5px; background: var(--line-strong);
+      transform-origin: 0.5px 448px;
+    }
+    .dial-marker {
+      position: absolute; top: -40px; left: 50%; margin-left: -36px;
+      width: 72px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer; background: none; border: none; padding: 0;
+      transform-origin: 36px 488px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: auto;
+    }
+    .dial-marker-year {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+      letter-spacing: 1px; color: var(--ink-faint);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); white-space: nowrap;
+    }
+    .dial-marker-bar {
+      width: 2px; height: 20px; border-radius: 1px; background: var(--line-strong);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dial-marker.active .dial-marker-year {
+      color: var(--klein); font-size: 15px; font-weight: 700;
+      text-shadow: 0 0 20px rgba(0,47,167,0.15);
+    }
+    .dial-marker.active .dial-marker-bar {
+      height: 34px; width: 2.5px; background: var(--klein);
+      box-shadow: 0 0 12px rgba(0,47,167,0.3);
+    }
+    .dial-pointer {
+      position: absolute; bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column-reverse; align-items: center;
+      z-index: 10; pointer-events: none;
+      transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: 50% 110px;
+    }
+    .dial-pointer-dot {
+      width: 12px; height: 12px; border-radius: 50%; background: var(--klein);
+      box-shadow: 0 0 0 4px var(--klein-light), 0 0 16px rgba(0,47,167,0.2);
+    }
+    .dial-pointer-needle {
+      width: 1.5px; height: 100px;
+      background: linear-gradient(to top, var(--klein), rgba(0,47,167,0.05)); border-radius: 1px;
+    }
+    .dial-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 40px; margin-top: 10px;
+    }
+    .dial-nav-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+      padding: 10px 20px; cursor: pointer; font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--ink-soft); transition: all 0.3s ease;
+    }
+    .dial-nav-btn:hover { color: var(--klein); border-color: var(--klein-mid); box-shadow: 0 4px 16px rgba(0,47,167,0.08); }
+    .dial-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .dial-current {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--klein);
+      min-width: 220px; text-align: center;
+    }
 
-      /* 卡片文字区 */
-      .card-text { padding: 18px 22px 20px; height: 50%; display: flex; flex-direction: column; }
-      .card-meta {
-        font-family: "JetBrains Mono", monospace; font-size: 10px;
-        letter-spacing: 1.4px; color: var(--klein); text-transform: uppercase;
-        margin-bottom: 4px; display: flex; justify-content: space-between;
-        align-items: center;
-      }
-      .card-meta .year-tag {
-        background: rgba(0,47,167,0.08); border: 1px solid rgba(0,47,167,0.22);
-        border-radius: 999px; padding: 1px 9px; color: var(--klein);
-      }
-      .card-company {
-        font-family: "ZCOOL KuaiLe", "LXGW WenKai", cursive;
-        font-size: 24px; letter-spacing: 1.5px; color: var(--ink);
-        line-height: 1.15; margin-bottom: 2px;
-      }
-      .card-role {
-        font-family: "Caveat", cursive; font-size: 17px; font-style: italic;
-        color: var(--ink-light); margin-bottom: 10px;
-      }
-      .card-duties {
-        flex: 1; overflow-y: auto; padding-right: 4px;
-        font-size: 11.5px; line-height: 1.7; color: var(--ink-soft);
-      }
-      .card-duties::-webkit-scrollbar { width: 3px; }
-      .card-duties::-webkit-scrollbar-thumb { background: rgba(0,47,167,0.3); border-radius: 3px; }
-      .card-duties .duty-item {
-        position: relative; padding-left: 12px; margin-bottom: 6px;
-      }
-      .card-duties .duty-item::before {
-        content: ""; position: absolute; left: 1px; top: 8px; width: 4px; height: 4px;
-        border-radius: 50%; background: var(--klein);
-      }
-      .card-duties .duty-item b { color: var(--ink); font-weight: 600; }
-      .card-duties .duty-item:last-child { margin-bottom: 0; }
+    /* ===== 扇形堆叠响应式 ===== */
+    @media (max-width: 1024px) {
+      .fan-stage { height: 420px; }
+      .fan-card-wrapper { width: 240px; height: 350px; margin-left: -120px; }
+      .fan-photo { height: 170px; }
+      .fan-title { font-size: 18px; }
+      .dial-clock { height: 180px; }
+      .dial-arc-outer { top: 40px; width: 700px; height: 700px; }
+      .dial-arc-center { top: 42px; width: 696px; height: 696px; }
+      .dial-tick { transform-origin: 0.5px 348px; }
+      .dial-marker { top: -32px; transform-origin: 36px 380px; }
+      .dial-pointer-needle { height: 80px; }
+      .dial-pointer { transform-origin: 50% 90px; }
+    }
+    @media (max-width: 640px) {
+      .page-wrap { padding: 0 20px; }
+      .page-header { padding: 90px 0 30px; }
+      .page-title { font-size: 38px; letter-spacing: 2px; }
+      .page-subtitle { font-size: 19px; }
+      .back-home { top: 16px; left: 16px; padding: 8px 14px; font-size: 10px; }
+      .fan-stage { height: 360px; }
+      .fan-card-wrapper { width: 200px; height: 300px; margin-left: -100px; }
+      .fan-photo { height: 130px; }
+      .fan-title { font-size: 16px; }
+      .fan-desc { font-size: 10.5px; }
+      .dial-clock { height: 150px; }
+      .dial-arc-outer { top: 30px; width: 500px; height: 500px; }
+      .dial-arc-center { top: 32px; width: 496px; height: 496px; }
+      .dial-tick { transform-origin: 0.5px 248px; }
+      .dial-marker { top: -28px; transform-origin: 36px 280px; margin-left: -28px; width: 56px; }
+      .dial-marker-year { font-size: 10px; }
+      .dial-marker.active .dial-marker-year { font-size: 12px; }
+      .dial-pointer-needle { height: 60px; }
+      .dial-pointer { transform-origin: 50% 70px; }
+      .dial-nav { gap: 16px; flex-wrap: wrap; }
+      .dial-current { min-width: auto; order: -1; width: 100%; }
+      .page-nav { flex-direction: column; gap: 16px; margin: 50px auto 24px; }
+      .page-nav-center { order: -1; }
+      .footer-links { gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 返回首页按钮 -->
+  <a href="index.html" class="back-home">← BACK HOME</a>
 
-      .card-number {
-        font-family: "JetBrains Mono", monospace; font-size: 9.5px;
-        color: var(--ink-light); text-align: right; letter-spacing: 1px;
-        margin-top: 8px;
-      }
+  <!-- 页面标题 -->
+  <div class="page-wrap">
+    <div class="page-header">
+      <div class="page-eyebrow">Experience · 2024 — 2026</div>
+      <h1 class="page-title">实习经历</h1>
+      <p class="page-subtitle">four internships, one journey</p>
+      <p class="page-desc">点击卡片翻转查看详细工作内容，左右箭头或键盘方向键切换，手机端可左右滑动</p>
+    </div>
+  </div>
 
-      /* ============== 弧形时间线 ============== */
-      .arc-timeline {
-        position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
-        pointer-events: none; padding: 0 16px 14px;
-        transition: opacity 0.5s ease, transform 0.5s ease;
-      }
-      .arc-timeline.faded { opacity: 0.15; transform: translateY(8px); }
-      .arc-timeline svg {
-        display: block; margin: 0 auto; max-width: 720px; width: 100%;
-        height: auto;
-      }
-      .arc-timeline .arc-path {
-        fill: none; stroke: var(--klein); stroke-width: 2;
-        stroke-linecap: round; opacity: 0.35;
-      }
-      .arc-timeline .arc-progress {
-        fill: none; stroke: var(--klein); stroke-width: 3;
-        stroke-linecap: round;
-      }
-      .arc-timeline .year-dot { fill: var(--cream); stroke: var(--klein); stroke-width: 2; }
-      .arc-timeline .year-label {
-        font-family: "JetBrains Mono", monospace; font-size: 11px;
-        fill: var(--ink-soft); letter-spacing: 1px;
-      }
-      .arc-timeline .year-label-active { fill: var(--klein); font-weight: 700; }
-      .arc-timeline .pointer {
-        fill: var(--klein); stroke: var(--cream); stroke-width: 2;
-        filter: drop-shadow(0 2px 6px rgba(0,47,167,0.4));
-      }
-      .arc-timeline .pointer-pulse {
-        fill: var(--klein); opacity: 0.25;
-        animation: pointerPulse 1.8s ease-out infinite;
-      }
-      @keyframes pointerPulse {
-        0% { transform: scale(1); opacity: 0.4; }
-        100% { transform: scale(2.6); opacity: 0; }
-      }
-      .arc-timeline-caption {
-        position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
-        font-family: "JetBrains Mono", monospace; font-size: 9.5px;
-        color: var(--ink-light); letter-spacing: 1.5px; opacity: 0.6;
-      }
-      @media (max-width: 768px) {
-        .arc-timeline { padding-bottom: 8px; }
-        .arc-timeline svg { max-width: 92vw; }
-        .arc-timeline .year-label { font-size: 9.5px; }
-      }
-
-      /* ============== 上一页/下一页导航 ============== */
-      .page-nav {
-        display: grid; grid-template-columns: 1fr auto 1fr;
-        align-items: center; gap: 24px;
-        max-width: 920px; margin: 0 auto; padding: 80px 24px 24px;
-        position: relative; z-index: 5;
-      }
-      .page-nav .nav-slot { display: flex; }
-      .page-nav .nav-slot.left { justify-content: flex-start; }
-      .page-nav .nav-slot.right { justify-content: flex-end; }
-      .page-nav .nav-slot.empty .nav-empty {
-        font-family: "JetBrains Mono", monospace; font-size: 10px;
-        color: var(--ink-light); opacity: 0.5; letter-spacing: 1px;
-        border: 1.4px dashed rgba(0,47,167,0.25); border-radius: 999px;
-        padding: 10px 20px;
-      }
-      .page-nav .nav-center {
-        text-align: center; font-family: "JetBrains Mono", monospace;
-        font-size: 10.5px; color: var(--ink-light); letter-spacing: 2px;
-        text-transform: uppercase; white-space: nowrap;
-      }
-      .page-nav .nav-center .current {
-        font-family: "ZCOOL KuaiLe", cursive; font-size: 17px;
-        color: var(--klein); letter-spacing: 4px; display: block;
-        margin-bottom: 4px;
-      }
-      .page-nav .nav-btn {
-        display: inline-flex; align-items: center; gap: 8px;
-        font-family: "JetBrains Mono", monospace; font-size: 11px;
-        letter-spacing: 1.2px; color: var(--klein); text-decoration: none;
-        background: var(--cream); border: 1.4px solid rgba(0,47,167,0.35);
-        border-radius: 999px; padding: 11px 22px;
-        transition: all 0.3s ease; will-change: transform;
-      }
-      .page-nav .nav-btn:hover {
-        background: var(--klein); color: #fff; border-color: var(--klein);
-        transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,47,167,0.25);
-      }
-      .page-nav .nav-btn img { width: 14px; height: 14px; display: block; }
-      .page-nav .nav-btn:hover img { filter: invert(1); }
-
-      /* ============== 页脚 ============== */
-      .page-footer { padding: 40px 0 80px; text-align: center; position: relative; z-index: 5; }
-      .page-footer .footer-nav {
-        display: flex; justify-content: center; gap: 28px; margin-bottom: 20px; flex-wrap: wrap;
-      }
-      .page-footer .copyright {
-        font-family: "JetBrains Mono", monospace; font-size: 10px;
-        color: var(--ink-light); letter-spacing: 0.8px; opacity: 0.65;
-      }
-
-      /* ============== 灯箱 ============== */
-      .lightbox {
-        position: fixed; inset: 0; z-index: 10002;
-        background: rgba(15, 20, 40, 0.85); backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        display: flex; align-items: center; justify-content: center;
-        opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
-      }
-      .lightbox.active { opacity: 1; pointer-events: auto; }
-      .lightbox-inner {
-        width: min(90vw, 560px); aspect-ratio: 4/5;
-        border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;
-        overflow: hidden; position: relative;
-        box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-        transform: scale(0.94); transition: transform 0.4s cubic-bezier(0.2,0.8,0.25,1);
-      }
-      .lightbox.active .lightbox-inner { transform: scale(1); }
-      .lightbox-inner .photo-placeholder { height: 100%; }
-      .lightbox-caption {
-        position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
-        background: rgba(255,253,248,0.95); padding: 8px 18px; border-radius: 999px;
-        font-family: "JetBrains Mono", monospace; font-size: 11px;
-        color: var(--ink-soft); letter-spacing: 1px;
-        white-space: nowrap; box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-      }
-      .lightbox-close-hint {
-        position: absolute; top: 24px; right: 28px; color: rgba(255,255,255,0.85);
-        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 1px;
-        background: rgba(0,0,0,0.25); padding: 6px 12px; border-radius: 999px;
-        backdrop-filter: blur(6px);
-      }
-
-      /* ============== Scroll Reveal ============== */
-      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.25,1); }
-      .reveal.active { opacity: 1; transform: translateY(0); }
-
-      /* ============== 字符弹跳标题（hover 标题整体，按字符序错开延迟弹跳） ============== */
-      .char-bounce .char {
-        display: inline-block; transition: transform 0.3s ease-out, color 0.3s ease;
-        transform-origin: center bottom;
-      }
-      .char-bounce.bouncing .char {
-        transform: translateY(-10px) rotate(var(--r, 0deg));
-        color: var(--klein);
-      }
-
-      @media (max-width: 768px) {
-        .page-head { padding-top: 90px; }
-        .page-head h1 { font-size: 40px; letter-spacing: 4px; }
-        .page-head .page-desc { font-size: 18px; }
-        .back-home { top: 16px; left: 16px; }
-        .intern-card { width: 260px; height: 380px; margin-left: -130px; margin-top: -190px; }
-        .card-company { font-size: 20px; }
-        .card-duties { font-size: 10.5px; }
-        .page-nav { grid-template-columns: 1fr; gap: 14px; padding: 60px 20px 20px; }
-        .page-nav .nav-slot { justify-content: center !important; }
-        .page-nav .nav-slot.empty { display: none; }
-        .fan-section { height: 360vh; }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- 水花光标画布 -->
-    <canvas id="splashCanvas"></canvas>
-    <div class="cursor-dot" id="cursorDot"></div>
-
-    <a href="index.html" class="back-home">
-      <img src="assets/icons/arrow-left.svg" alt="" />
-      BACK HOME 返回主页
-    </a>
-
-    <header class="page-head">
-      <div class="p-eyebrow">Internship Experience</div>
-      <h1 class="char-bounce" id="pageTitle">实习经历</h1>
-      <p class="page-desc">flip through my journey</p>
-      <svg class="head-underline" viewBox="0 0 360 22" fill="none" stroke="#002fa7" stroke-width="1.4" stroke-linecap="round">
-        <path d="M6,13 C26,3 46,3 66,13 C86,23 106,23 126,13 C146,3 166,3 186,13 C206,23 226,23 246,13 C266,3 286,3 306,13 C326,23 346,21 354,14" />
-      </svg>
-    </header>
-
-    <!-- 照片扇形堆叠 + 滚动展开 -->
-    <section class="fan-section" id="fanSection">
-      <div class="fan-sticky">
-        <div class="fan-hint">
-          <span class="scroll-dot"></span>
-          SCROLL TO FAN OUT · 滚动展开
-          <span class="scroll-dot"></span>
-        </div>
-        <div class="fan-stage">
-          <div class="fan-container" id="fanContainer">
-
-            <!-- Card 1: 2026 小红书 (top of stack, reverse chronological) -->
-            <article class="intern-card" data-index="0" data-rotation="-8" data-year="2026" data-company="小红书">
-              <div class="card-photo" data-photo>
-                <div class="photo-placeholder">
-                  <span class="photo-emoji">📷</span>
-                  <span class="photo-label">待补充照片</span>
-                  <span class="photo-zoom-hint">CLICK · 放大</span>
-                </div>
+  <!-- 扇形堆叠 -->
+  <section class="fan-section">
+    <div class="fan-stage">
+      <!-- 卡片1：小红书 -->
+      <div class="fan-card-wrapper">
+        <div class="fan-flip-card">
+          <div class="fan-flip-face fan-flip-front">
+            <div class="fan-photo">
+              <div class="photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>待补充照片</span>
               </div>
-              <div class="card-text">
-                <div class="card-meta">
-                  <span>2026.05 — 2026.08 · 上海</span>
-                  <span class="year-tag">2026</span>
-                </div>
-                <h2 class="card-company">小红书</h2>
-                <div class="card-role">Product Operations Intern · 产品运营实习生</div>
-                <div class="card-duties">
-                  <div class="duty-item"><b>AI内容矩阵搭建：</b>借助Vibe Coding独立搭建AI内容自动化生产工具，将单条产出成本压缩至5分钟（效率提升6倍），累计产出180+篇AI精品内容；搭建Prompt素材沉淀库，推动内容生产流程标准化。</div>
-                  <div class="duty-item"><b>AI功能0→1落地：</b>调研旅游用户反馈输出需求分析，独立设计并落地塔罗手势交互创新玩法，联动研发团队排期上线；主导KOS宣发策略制定，功能上线首周Web端拉新3,000+。</div>
-                  <div class="duty-item"><b>数据驱动策略迭代：</b>搭建核心数据看板，日常监控DAU/次留/7留/使用时长等核心指标，基于A/B Test分析策略与功能效果并迭代优化，驱动次日/7日留存率与人均使用时长稳步提升。</div>
-                </div>
-                <div class="card-number">01 / 04</div>
-              </div>
-            </article>
-
-            <!-- Card 2: 2025 百度 -->
-            <article class="intern-card" data-index="1" data-rotation="-2.67" data-year="2025" data-company="百度">
-              <div class="card-photo" data-photo>
-                <div class="photo-placeholder">
-                  <span class="photo-emoji">📷</span>
-                  <span class="photo-label">待补充照片</span>
-                  <span class="photo-zoom-hint">CLICK · 放大</span>
-                </div>
-              </div>
-              <div class="card-text">
-                <div class="card-meta">
-                  <span>2025.11 — 2026.03 · 北京</span>
-                  <span class="year-tag">2025</span>
-                </div>
-                <h2 class="card-company">百度</h2>
-                <div class="card-role">Product Operations Intern · SSP平台</div>
-                <div class="card-duties">
-                  <div class="duty-item"><b>产品与流程优化：</b>主导运营工具编辑迭代，将发文流程从依赖研发排期压缩至运营侧编辑器5分钟内一键上线，发文效率提升10倍+；依托AI Agent工具（OpenClaw）搭建多平台自动化发布提效链路。</div>
-                  <div class="duty-item"><b>数据复盘与用户服务运营：</b>建立周度运营数据复盘机制；日均响应用户咨询30+条，基于300+份用户反馈，满意度稳定达98%+。</div>
-                  <div class="duty-item"><b>内容生态运营：</b>策划安全科普类线上话题活动，独立创作80+安全科普脚本，运营内容周均访问6,000+，用户留存率提升18%；主导20万级预算安全月活动。</div>
-                </div>
-                <div class="card-number">02 / 04</div>
-              </div>
-            </article>
-
-            <!-- Card 3: 2024 大淘体育 -->
-            <article class="intern-card" data-index="2" data-rotation="2.67" data-year="2024" data-company="大淘体育">
-              <div class="card-photo" data-photo>
-                <div class="photo-placeholder">
-                  <span class="photo-emoji">📷</span>
-                  <span class="photo-label">待补充照片</span>
-                  <span class="photo-zoom-hint">CLICK · 放大</span>
-                </div>
-              </div>
-              <div class="card-text">
-                <div class="card-meta">
-                  <span>2024.07 — 2024.09 · 线上</span>
-                  <span class="year-tag">2024</span>
-                </div>
-                <h2 class="card-company">大淘体育</h2>
-                <div class="card-role">Content Operations Intern · 内容运营实习生</div>
-                <div class="card-duties">
-                  <div class="duty-item"><b>多平台内容矩阵冷启动：</b>从0搭建抖音+公众号+官网多平台内容矩阵，产出20份策划方案+10条系列视频，单条播放稳定7W+；从0累积2000+精准粉丝，月阅读量提升30%。</div>
-                  <div class="duty-item"><b>用户分层与精细化运营：</b>搭建用户分层运营体系，基于消费频次与活跃度设计标签体系，划分3类核心用户匹配差异化触达策略；单月公域转私域300+人。</div>
-                </div>
-                <div class="card-number">03 / 04</div>
-              </div>
-            </article>
-
-            <!-- Card 4: 2024 长春广播电视台 -->
-            <article class="intern-card" data-index="3" data-rotation="8" data-year="2024" data-company="长春广播电视台">
-              <div class="card-photo" data-photo>
-                <div class="photo-placeholder">
-                  <span class="photo-emoji">📷</span>
-                  <span class="photo-label">待补充照片</span>
-                  <span class="photo-zoom-hint">CLICK · 放大</span>
-                </div>
-              </div>
-              <div class="card-text">
-                <div class="card-meta">
-                  <span>2024.07 · 长春</span>
-                  <span class="year-tag">2024</span>
-                </div>
-                <h2 class="card-company">长春广播电视台</h2>
-                <div class="card-role">Content Operations Intern · 内容运营实习生</div>
-                <div class="card-duties">
-                  <div class="duty-item"><b>视频剪辑与多平台适配：</b>完成视频粗剪、精剪、字幕、音效、调色等全流程制作，输出横版/竖版多版本内容，累计发布5条合规视频。</div>
-                  <div class="duty-item"><b>内容创作与合规把控：</b>参与新闻推文、短视频文案撰写，协助采访整理与信息核验，具备内容合规审核与严谨文案把控能力。</div>
-                </div>
-                <div class="card-number">04 / 04</div>
-              </div>
-            </article>
-
+            </div>
+            <div class="fan-info">
+              <div class="fan-year">2026.05 — 2026.08</div>
+              <div class="fan-title">小红书</div>
+              <div class="fan-subtitle">产品运营实习生</div>
+              <div class="fan-desc">AI内容矩阵搭建，AI功能0→1落地，数据驱动策略迭代，塔罗手势交互玩法上线</div>
+              <div class="fan-location">Shanghai · 上海</div>
+            </div>
+          </div>
+          <div class="fan-flip-face fan-flip-back">
+            <div class="fan-back-header">
+              <div class="fan-back-title">小红书</div>
+              <div class="fan-back-subtitle">产品运营实习生 · 2026.05 — 2026.08</div>
+            </div>
+            <ul class="fan-back-list">
+              <li>AI内容矩阵搭建：借助Vibe Coding独立搭建AI内容自动化生产工具，将单条产出成本压缩至5分钟（效率提升6倍），累计产出180+篇AI精品内容，搭建Prompt素材沉淀库</li>
+              <li>AI功能0→1落地：调研旅游用户反馈输出需求分析，独立设计并落地塔罗手势交互创新玩法，联动研发团队排期上线，主导KOS宣发策略，功能上线首周Web端拉新3,000+</li>
+              <li>数据驱动策略迭代：搭建核心数据看板，日常监控DAU/次留/7留/使用时长等核心指标，基于A/B Test分析策略效果并迭代优化，驱动留存率与人均使用时长稳步提升</li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- 弧形时间线（固定在底部） -->
-    <div class="arc-timeline" id="arcTimeline" aria-hidden="true">
-      <svg viewBox="-30 -32 1446 480" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-        <!-- 弧线主路径（背景） -->
-        <path class="arc-path" d="M 0,400 A 800,800 0 0,0 1386,400" />
-        <!-- 弧线进度（已扫过部分，动态长度，从 2024 端开始增长） -->
-        <path class="arc-progress" id="arcProgress" d="M 0,400 A 800,800 0 0,0 1386,400"
-              stroke-dasharray="0 1675" stroke-dashoffset="0" />
-        <!-- 年份标记点 -->
-        <!-- 2024 @ angle 210° -> (0, 400) -->
-        <circle class="year-dot" cx="0" cy="400" r="10" />
-        <text class="year-label" x="0" y="442" text-anchor="middle">2024</text>
-        <!-- 2025 @ angle 270° -> (693, 0) -->
-        <circle class="year-dot" cx="693" cy="0" r="10" />
-        <text class="year-label" x="693" y="-18" text-anchor="middle">2025</text>
-        <!-- 2026 @ angle 330° -> (1386, 400) -->
-        <circle class="year-dot" cx="1386" cy="400" r="10" />
-        <text class="year-label" x="1386" y="442" text-anchor="middle">2026</text>
-        <!-- 中间过渡点（可选辅助）：用于细分定位 -->
-        <circle cx="346" cy="100" r="4" fill="#002fa7" opacity="0.25" />
-        <circle cx="1040" cy="100" r="4" fill="#002fa7" opacity="0.25" />
-        <!-- 指针脉冲光圈 -->
-        <circle class="pointer-pulse" id="pointerPulse" cx="0" cy="400" r="12" />
-        <!-- 指针主点 -->
-        <circle class="pointer" id="pointer" cx="0" cy="400" r="13" />
-      </svg>
-      <div class="arc-timeline-caption">INTERNSHIP TIMELINE · 2024 — 2026</div>
-    </div>
-
-    <!-- 上一页 / 下一页 导航 -->
-    <nav class="page-nav reveal">
-      <div class="nav-slot left empty">
-        <span class="nav-empty">← FIRST PAGE · 已是首页</span>
-      </div>
-      <div class="nav-center">
-        <span class="current">实习经历</span>
-        INTERNSHIP · 02
-      </div>
-      <div class="nav-slot right">
-        <a href="projects.html" class="nav-btn" id="nextPageBtn">
-          下一页：项目作品
-          <img src="assets/icons/arrow-right.svg" alt="" />
-        </a>
-      </div>
-    </nav>
-
-    <!-- 页脚 -->
-    <footer class="page-footer">
-      <div class="footer-nav">
-        <a href="about.html" class="magnetic-btn">ABOUT</a>
-        <a href="projects.html" class="magnetic-btn">PROJECTS</a>
-        <a href="campus.html" class="magnetic-btn">CAMPUS</a>
-        <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
-      </div>
-      <p class="copyright">© 2026 WANG JIAXIN · ALL RIGHTS RESERVED</p>
-    </footer>
-
-    <!-- 照片灯箱 -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-      <div class="lightbox-close-hint">ESC / 点击关闭</div>
-      <div class="lightbox-inner">
-        <div class="photo-placeholder">
-          <span class="photo-emoji" style="font-size:48px">📷</span>
-          <span class="photo-label" id="lightboxLabel">待补充照片</span>
+      <!-- 卡片2：百度 -->
+      <div class="fan-card-wrapper">
+        <div class="fan-flip-card">
+          <div class="fan-flip-face fan-flip-front">
+            <div class="fan-photo">
+              <div class="photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>待补充照片</span>
+              </div>
+            </div>
+            <div class="fan-info">
+              <div class="fan-year">2025.11 — 2026.03</div>
+              <div class="fan-title">百度</div>
+              <div class="fan-subtitle">产品运营实习生 · SSP平台</div>
+              <div class="fan-desc">产品与流程优化，数据复盘与用户服务运营，内容生态运营，安全月活动主导</div>
+              <div class="fan-location">Beijing · 北京</div>
+            </div>
+          </div>
+          <div class="fan-flip-face fan-flip-back">
+            <div class="fan-back-header">
+              <div class="fan-back-title">百度</div>
+              <div class="fan-back-subtitle">产品运营实习生 · SSP平台 · 2025.11 — 2026.03</div>
+            </div>
+            <ul class="fan-back-list">
+              <li>产品与流程优化：主导运营工具编辑迭代，将发文流程从依赖研发排期压缩至运营侧编辑器5分钟内一键上线，发文效率提升10倍+，沉淀可复用SOP，依托AI Agent工具搭建多平台自动化发布链路</li>
+              <li>数据复盘与用户服务运营：建立周度运营数据复盘机制，围绕访问量、留存率等核心指标拆解分析，日均响应用户咨询30+条，提炼高频问题为FAQ，基于300+份用户反馈，满意度稳定达98%+</li>
+              <li>内容生态运营：策划安全科普类线上话题活动，独立创作80+安全科普脚本并落地宣发，运营内容周均访问6,000+，独立访客4,000+，用户留存率提升18%，主导20万级预算安全月活动</li>
+            </ul>
+          </div>
         </div>
-        <div class="lightbox-caption" id="lightboxCaption">实习照片占位</div>
+      </div>
+
+      <!-- 卡片3：大淘体育 -->
+      <div class="fan-card-wrapper">
+        <div class="fan-flip-card">
+          <div class="fan-flip-face fan-flip-front">
+            <div class="fan-photo">
+              <div class="photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>待补充照片</span>
+              </div>
+            </div>
+            <div class="fan-info">
+              <div class="fan-year">2024.07 — 2024.09</div>
+              <div class="fan-title">大淘体育</div>
+              <div class="fan-subtitle">内容运营实习生</div>
+              <div class="fan-desc">多平台内容矩阵冷启动，用户分层与精细化运营，抖音+公众号+官网三平台协同</div>
+              <div class="fan-location">Remote · 线上</div>
+            </div>
+          </div>
+          <div class="fan-flip-face fan-flip-back">
+            <div class="fan-back-header">
+              <div class="fan-back-title">大淘体育</div>
+              <div class="fan-back-subtitle">内容运营实习生 · 2024.07 — 2024.09</div>
+            </div>
+            <ul class="fan-back-list">
+              <li>多平台内容矩阵冷启动：从0搭建抖音+公众号+官网多平台内容矩阵，主导内容选题、策划与发布节奏，产出20份策划方案+10条系列视频，单条播放稳定7W+，从0累积2000+精准粉丝，月阅读量提升30%</li>
+              <li>用户分层与精细化运营：针对用户画像模糊痛点，搭建用户分层运营体系，基于消费频次与活跃度设计标签体系，划分3类核心用户匹配差异化触达策略，单月公域转私域300+人</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片4：长春广播电视台 -->
+      <div class="fan-card-wrapper">
+        <div class="fan-flip-card">
+          <div class="fan-flip-face fan-flip-front">
+            <div class="fan-photo">
+              <div class="photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>待补充照片</span>
+              </div>
+            </div>
+            <div class="fan-info">
+              <div class="fan-year">2024.07</div>
+              <div class="fan-title">长春广播电视台</div>
+              <div class="fan-subtitle">内容运营实习生</div>
+              <div class="fan-desc">视频剪辑与多平台适配，内容创作与合规把控，新闻推文与短视频文案撰写</div>
+              <div class="fan-location">Changchun · 长春</div>
+            </div>
+          </div>
+          <div class="fan-flip-face fan-flip-back">
+            <div class="fan-back-header">
+              <div class="fan-back-title">长春广播电视台</div>
+              <div class="fan-back-subtitle">内容运营实习生 · 2024.07</div>
+            </div>
+            <ul class="fan-back-list">
+              <li>视频剪辑与多平台适配：完成视频粗剪、精剪、字幕、音效、调色等全流程制作，输出横版/竖版多版本内容，累计发布5条合规视频</li>
+              <li>内容创作与合规把控：参与新闻推文、短视频文案撰写，协助采访整理与信息核验，具备内容合规审核与严谨文案把控能力</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
+    <p class="fan-hint">CLICK CARD TO FLIP · 点击卡片翻转查看详情</p>
+  </section>
 
-    <script>
-    (function () {
-      "use strict";
+  <!-- 弧形时间轴 -->
+  <section class="dial-section">
+    <div class="dial-wrapper">
+      <div class="dial-clock">
+        <div class="dial-arc-outer"></div>
+        <div class="dial-arc-center">
+          <div class="dial-arc"></div>
+          <!-- 刻度线 -->
+          <div class="dial-tick" style="transform:rotate(-55deg)"></div>
+          <div class="dial-tick" style="transform:rotate(-37deg)"></div>
+          <div class="dial-tick" style="transform:rotate(-18deg)"></div>
+          <div class="dial-tick" style="transform:rotate(0deg)"></div>
+          <div class="dial-tick" style="transform:rotate(18deg)"></div>
+          <div class="dial-tick" style="transform:rotate(37deg)"></div>
+          <div class="dial-tick" style="transform:rotate(55deg)"></div>
+          <!-- 年份标记（4个，对应4段实习） -->
+          <button class="dial-marker" style="transform:rotate(-55deg)" aria-label="2026">
+            <span class="dial-marker-year">2026</span>
+            <span class="dial-marker-bar"></span>
+          </button>
+          <button class="dial-marker" style="transform:rotate(-18deg)" aria-label="2025">
+            <span class="dial-marker-year">2025</span>
+            <span class="dial-marker-bar"></span>
+          </button>
+          <button class="dial-marker" style="transform:rotate(18deg)" aria-label="2024">
+            <span class="dial-marker-year">2024</span>
+            <span class="dial-marker-bar"></span>
+          </button>
+          <button class="dial-marker" style="transform:rotate(55deg)" aria-label="2024">
+            <span class="dial-marker-year">2024</span>
+            <span class="dial-marker-bar"></span>
+          </button>
+        </div>
+        <div class="dial-pointer">
+          <div class="dial-pointer-dot"></div>
+          <div class="dial-pointer-needle"></div>
+        </div>
+      </div>
+      <div class="dial-nav">
+        <button class="dial-nav-btn dial-prev">← PREV</button>
+        <span class="dial-current">2026 · 小红书</span>
+        <button class="dial-nav-btn dial-next">NEXT →</button>
+      </div>
+    </div>
+  </section>
 
-      /* ========================================================
-       * 1. SplashCursor — 水花光标 + 粒子轨迹
-       * ====================================================== */
-      const cursorDot = document.getElementById('cursorDot');
-      const splashCanvas = document.getElementById('splashCanvas');
-      const ctx = splashCanvas.getContext('2d');
-      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-      let particles = [];
-      let lastMouseX = 0, lastMouseY = 0;
-      let isMobile = window.matchMedia('(max-width: 768px)').matches;
+  <!-- 底部上一页/下一页导航 -->
+  <div class="page-nav">
+    <a href="index.html" class="page-nav-btn">← 首页</a>
+    <span class="page-nav-center">01 / 05</span>
+    <a href="projects.html" class="page-nav-btn">项目作品 →</a>
+  </div>
 
-      function resizeCanvas() {
-        splashCanvas.width = window.innerWidth;
-        splashCanvas.height = window.innerHeight;
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+  <!-- 页脚 -->
+  <footer class="page-footer">
+    <div class="footer-links">
+      <a href="internship.html">实习经历</a>
+      <a href="projects.html">项目作品</a>
+      <a href="campus.html">校园经历</a>
+      <a href="about.html">关于我</a>
+      <a href="journey.html">成长旅程</a>
+      <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="footer-copy">© 2026 WANG JIAXIN · ALL RIGHTS RESERVED</p>
+  </footer>
 
-      function spawnParticles(x, y, count, opts) {
-        opts = opts || {};
-        const baseColor = opts.color || [0, 47, 167];
-        for (let i = 0; i < count; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = (opts.speed || 1.2) * (0.4 + Math.random() * 1.2);
-          particles.push({
-            x: x, y: y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - (opts.lift || 0.4),
-            life: 1,
-            decay: 0.018 + Math.random() * 0.02,
-            size: 2 + Math.random() * 3,
-            color: baseColor
-          });
-          if (particles.length > 220) particles.shift();
+  <script>
+    // ===== 扇形堆叠+弧形时间轴交互 =====
+    (function() {
+      const fanCards = document.querySelectorAll('.fan-card-wrapper');
+      const dialMarkers = document.querySelectorAll('.dial-marker');
+      const dialPointer = document.querySelector('.dial-pointer');
+      const dialCurrent = document.querySelector('.dial-current');
+      const prevBtn = document.querySelector('.dial-prev');
+      const nextBtn = document.querySelector('.dial-next');
+
+      if (fanCards.length === 0) return;
+
+      let currentIndex = 0;
+      const totalCards = fanCards.length;
+      const startAngle = -55;  // 起始角度
+      const endAngle = 55;     // 结束角度
+      const angleStep = (endAngle - startAngle) / Math.max(totalCards - 1, 1);
+
+      // 卡片数据（用于显示当前选中项）
+      const cardData = [];
+      fanCards.forEach(card => {
+        const year = card.querySelector('.fan-year') ? card.querySelector('.fan-year').textContent : '';
+        const title = card.querySelector('.fan-title') ? card.querySelector('.fan-title').textContent : '';
+        cardData.push({ year: year.split('—')[0].trim().split('.')[0], title: title });
+      });
+
+      function updateFan(index) {
+        fanCards.forEach((card, i) => {
+          const angle = startAngle + angleStep * i;
+          const isActive = i === index;
+          const distance = Math.abs(i - index);
+
+          // 基础旋转角度
+          const rotateAngle = angle;
+          // 选中的卡片上浮放大
+          const translateY = isActive ? '-24px' : '0px';
+          const scale = isActive ? '1.05' : '1';
+
+          card.style.transform = 'rotate(' + rotateAngle + 'deg) translateY(' + translateY + ') scale(' + scale + ')';
+          card.style.zIndex = isActive ? 50 : (100 - distance);
+          card.style.opacity = distance > 2 ? '0.25' : (distance === 2 ? '0.6' : '1');
+          card.style.filter = isActive
+            ? 'brightness(1.05) drop-shadow(0 8px 24px rgba(0,47,167,0.15))'
+            : 'brightness(' + (0.9 + Math.max(0, (2 - distance)) * 0.05) + ')';
+        });
+
+        // 更新时间轴标记
+        dialMarkers.forEach((m, i) => m.classList.toggle('active', i === index));
+
+        // 更新指针位置
+        if (dialPointer && dialMarkers.length > 0) {
+          const pointerAngle = startAngle + angleStep * index;
+          dialPointer.style.transform = 'translateX(-50%) rotate(' + pointerAngle + 'deg)';
         }
+
+        // 更新当前选中项文字
+        if (dialCurrent && cardData[index]) {
+          dialCurrent.textContent = cardData[index].year + ' · ' + cardData[index].title;
+        }
+
+        // 更新按钮状态
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === totalCards - 1;
       }
+
+      // 点击卡片：非选中则选中，已选中则翻转
+      fanCards.forEach((card, i) => {
+        card.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (i !== currentIndex) {
+            currentIndex = i;
+            updateFan(currentIndex);
+          } else {
+            card.classList.toggle('flipped');
+          }
+        });
+      });
+
+      // 点击其他区域取消翻转
+      document.addEventListener('click', () => {
+        fanCards.forEach(card => card.classList.remove('flipped'));
+      });
+
+      // 时间轴标记点击
+      dialMarkers.forEach((marker, i) => {
+        marker.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentIndex = i;
+          updateFan(currentIndex);
+        });
+      });
+
+      // 左右导航按钮
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (currentIndex > 0) { currentIndex--; updateFan(currentIndex); }
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (currentIndex < totalCards - 1) { currentIndex++; updateFan(currentIndex); }
+        });
+      }
+
+      // 键盘左右键
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentIndex > 0) { currentIndex--; updateFan(currentIndex); }
+        if (e.key === 'ArrowRight' && currentIndex < totalCards - 1) { currentIndex++; updateFan(currentIndex); }
+        if (e.key === 'Escape') { fanCards.forEach(card => card.classList.remove('flipped')); }
+      });
+
+      // 触摸滑动支持
+      let touchStartX = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      document.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0 && currentIndex < totalCards - 1) { currentIndex++; updateFan(currentIndex); }
+          else if (diff < 0 && currentIndex > 0) { currentIndex--; updateFan(currentIndex); }
+        }
+      }, { passive: true });
+
+      // 初始化
+      updateFan(0);
+    })();
+
+    // ===== 自定义光标（仅桌面端）=====
+    (function() {
+      if (window.innerWidth <= 768) return;
+      if ('ontouchstart' in window) return;
+
+      const ACCENT = '#002fa7';
+      const AR = 0, AG = 47, AB = 167;
+
+      const canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      let mouseX = -100, mouseY = -100;
+      let cursorX = -100, cursorY = -100;
+      const particles = [];
+      const MAX_PARTICLES = 60;
 
       document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX; mouseY = e.clientY;
-        // 仅在移动足够距离时生成粒子（5-8 颗）
-        const dx = mouseX - lastMouseX, dy = mouseY - lastMouseY;
-        if (Math.hypot(dx, dy) > 4) {
-          spawnParticles(mouseX, mouseY, 4 + Math.floor(Math.random() * 5));
-          lastMouseX = mouseX; lastMouseY = mouseY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        for (let i = 0; i < 2; i++) {
+          if (particles.length < MAX_PARTICLES) {
+            particles.push({
+              x: mouseX + (Math.random() - 0.5) * 6,
+              y: mouseY + (Math.random() - 0.5) * 6,
+              vx: (Math.random() - 0.5) * 1.5,
+              vy: (Math.random() - 0.5) * 1.5 - 0.5,
+              life: 1,
+              decay: 0.02 + Math.random() * 0.02,
+              size: Math.random() * 3 + 1.5
+            });
+          }
         }
       });
 
-      function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        if (!isMobile) {
-          cursorDot.style.left = cursorX + 'px';
-          cursorDot.style.top = cursorY + 'px';
+      let isHovering = false;
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, .fan-card-wrapper, .dial-marker, .dial-nav-btn')) {
+          isHovering = true;
         }
-        // 绘制粒子
-        ctx.clearRect(0, 0, splashCanvas.width, splashCanvas.height);
+      });
+      document.addEventListener('mouseout', (e) => {
+        if (e.target.closest('a, button, .fan-card-wrapper, .dial-marker, .dial-nav-btn')) {
+          isHovering = false;
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        for (let i = 0; i < 16; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.5 + Math.random() * 2.5;
+          particles.push({
+            x: e.clientX, y: e.clientY,
+            vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            life: 1, decay: 0.03 + Math.random() * 0.02,
+            size: Math.random() * 2.5 + 1.5
+          });
+        }
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
-          p.x += p.vx; p.y += p.vy;
-          p.vy += 0.02; // 微弱重力，模拟水滴落下
-          p.vx *= 0.985; p.vy *= 0.985;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.02;
           p.life -= p.decay;
           if (p.life <= 0) { particles.splice(i, 1); continue; }
-          const [cr, cg, cb] = p.color;
-          if (p.isRipple) {
-            // 涟漪：向外扩张的描边圆环，淡出
-            const r = p.size + (1 - p.life) * 26;
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (p.life * 0.45) + ')';
-            ctx.lineWidth = 2;
-            ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-            ctx.stroke();
-          } else {
-            // 普通粒子：缩小并淡出
-            const r = p.size * p.life;
-            ctx.beginPath();
-            ctx.fillStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (p.life * 0.55) + ')';
-            ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-            ctx.fill();
-          }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(' + AR + ',' + AG + ',' + AB + ',' + (p.life * 0.35) + ')';
+          ctx.fill();
         }
-        requestAnimationFrame(animateCursor);
-      }
-      animateCursor();
 
-      // 悬停可点击元素：24px 环 + 粒子爆发
-      document.querySelectorAll('a, button, .intern-card, .magnetic-btn, .nav-btn').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          cursorDot.classList.add('hover');
-          spawnParticles(mouseX, mouseY, 6, { speed: 2.2, lift: 0.2 });
-        });
-        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
-      });
-
-      // 点击：涟漪 + 粒子爆发
-      document.addEventListener('click', (e) => {
-        if (isMobile) return;
-        spawnParticles(e.clientX, e.clientY, 12, { speed: 3.2, lift: 0.5 });
-        // 涟漪环（颜色与主色一致，向外扩张并淡出）
-        particles.push({
-          x: e.clientX, y: e.clientY, vx: 0, vy: 0,
-          life: 1, decay: 0.03, size: 6,
-          color: [0, 47, 167], isRipple: true
-        });
-      });
-
-      /* ========================================================
-       * 2. 磁性按钮
-       * ====================================================== */
-      function bindMagnetic(selector) {
-        document.querySelectorAll(selector).forEach(btn => {
-          btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            const tx = Math.max(-15, Math.min(15, x * 0.3));
-            const ty = Math.max(-15, Math.min(15, y * 0.3));
-            btn.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
-            btn.style.transition = 'none';
-          });
-          btn.addEventListener('mouseleave', () => {
-            btn.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.25,1)';
-            btn.style.transform = 'translate(0, 0)';
-          });
-        });
-      }
-      bindMagnetic('.magnetic-btn');
-      bindMagnetic('.back-home');
-      bindMagnetic('.nav-btn');
-
-      /* ========================================================
-       * 3. 文字悬停字符弹跳
-       * ====================================================== */
-      function splitChars(el) {
-        const text = el.textContent;
-        el.textContent = '';
-        Array.from(text).forEach((ch, i) => {
-          const span = document.createElement('span');
-          span.className = 'char';
-          span.textContent = ch;
-          // 错开延迟：0.03s * index
-          span.style.transitionDelay = (0.03 * i) + 's';
-          // 随机 -5~5 度旋转
-          const r = (Math.random() * 10 - 5).toFixed(2);
-          span.style.setProperty('--r', r + 'deg');
-          el.appendChild(span);
-        });
-        // hover 标题整体，所有字符按序弹跳
-        el.addEventListener('mouseenter', () => el.classList.add('bouncing'));
-        el.addEventListener('mouseleave', () => el.classList.remove('bouncing'));
-      }
-      splitChars(document.getElementById('pageTitle'));
-      document.querySelectorAll('h2.card-company').forEach(splitChars);
-
-      /* ========================================================
-       * 4. Scroll Reveal
-       * ====================================================== */
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add('active'), i * 80);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-      /* ========================================================
-       * 5. 照片扇形堆叠 + 滚动展开
-       * ====================================================== */
-      const fanSection = document.getElementById('fanSection');
-      const fanContainer = document.getElementById('fanContainer');
-      const cards = Array.from(document.querySelectorAll('.intern-card'));
-      const rotations = cards.map(c => parseFloat(c.dataset.rotation));
-
-      function getFanParams() {
-        const vw = window.innerWidth;
-        if (vw < 768) {
-          return {
-            stackCenter: 90,   // 堆叠时整体偏右
-            stackStep: 4,      // 堆叠时每张卡片的微偏移（让扇形可见）
-            fanSpacing: 170    // 展开时卡片间距
-          };
-        }
-        return {
-          stackCenter: 220,
-          stackStep: 5,
-          fanSpacing: 280
-        };
-      }
-
-      function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-
-      function updateFan() {
-        const rect = fanSection.getBoundingClientRect();
-        const total = fanSection.offsetHeight - window.innerHeight;
-        let p = total > 0 ? (-rect.top) / total : 0;
-        p = Math.max(0, Math.min(1, p));
-        const params = getFanParams();
-        cards.forEach((card, i) => {
-          const rot = rotations[i];
-          // p=0：所有卡片堆叠在右侧（stackCenter + i*stackStep），靠 rotation 形成扇形
-          // p=1：卡片均匀展开在屏幕中央两侧（(i-1.5)*fanSpacing）
-          const stackX = params.stackCenter + i * params.stackStep;
-          const fanX = (i - (cards.length - 1) / 2) * params.fanSpacing;
-          const x = stackX + (fanX - stackX) * easeInOutCubic(p);
-          // z-index：i=0（最新）在最上层
-          const z = cards.length - i;
-          // 展开过程中卡片略微上浮
-          const yLift = -p * 8;
-          card.style.setProperty('--tx', x + 'px');
-          card.style.setProperty('--ty', yLift + 'px');
-          card.style.zIndex = z;
-          // 仅在没有 hover 时设置 transform；hover 由 CSS :hover 覆盖
-          if (!card.matches(':hover')) {
-            card.style.transform = 'translate(' + x + 'px, ' + yLift + 'px) rotate(' + rot + 'deg)';
-          }
-        });
-        return p;
-      }
-
-      /* ========================================================
-       * 6. 弧形时间线指针随滚动移动
-       * ====================================================== */
-      // 弧线圆心 (693, 800)，半径 800，扫过角度 210° -> 330°（共 120°）
-      // 2024 @ 210°，2025 @ 270°，2026 @ 330°
-      const ARC_CX = 693, ARC_CY = 800, ARC_R = 800;
-      const ARC_START_DEG = 210, ARC_END_DEG = 330;
-      const pointer = document.getElementById('pointer');
-      const pointerPulse = document.getElementById('pointerPulse');
-      const arcProgress = document.getElementById('arcProgress');
-      const yearLabels = document.querySelectorAll('.arc-timeline .year-label');
-      const arcTotalLen = 1675; // 弧线总长 ≈ (120/360)*2π*800 ≈ 1675
-
-      function arcPointAt(p) {
-        const deg = ARC_START_DEG + (ARC_END_DEG - ARC_START_DEG) * p;
-        const rad = deg * Math.PI / 180;
-        return { x: ARC_CX + ARC_R * Math.cos(rad), y: ARC_CY + ARC_R * Math.sin(rad) };
-      }
-      function updateArc(progress) {
-        const pt = arcPointAt(progress);
-        pointer.setAttribute('cx', pt.x);
-        pointer.setAttribute('cy', pt.y);
-        pointerPulse.setAttribute('cx', pt.x);
-        pointerPulse.setAttribute('cy', pt.y);
-        // 进度弧线：从起点（2024，左侧）开始随 progress 增长
-        // 使用动态 dasharray：dash = progress*总长，gap = (1-progress)*总长
-        const visible = arcTotalLen * progress;
-        arcProgress.setAttribute('stroke-dasharray', visible.toFixed(1) + ' ' + (arcTotalLen - visible).toFixed(1));
-        arcProgress.style.strokeDashoffset = '0';
-        // 高亮当前年份
-        let activeIdx = 0;
-        if (progress > 0.78) activeIdx = 2;
-        else if (progress > 0.35) activeIdx = 1;
-        yearLabels.forEach((lab, i) => {
-          lab.classList.toggle('year-label-active', i === activeIdx);
-        });
-      }
-
-      function onScroll() {
-        const p = updateFan();
-        updateArc(p);
-        // 当 fan-section 即将滚出视口（用户进入页脚/导航区）时，淡出弧线
-        const fanRect = fanSection.getBoundingClientRect();
-        const arcEl = document.getElementById('arcTimeline');
-        if (fanRect.bottom < window.innerHeight * 0.85) {
-          arcEl.classList.add('faded');
+        const cursorSize = isHovering ? 11 : 5;
+        if (isHovering) {
+          ctx.beginPath();
+          ctx.arc(cursorX, cursorY, cursorSize, 0, Math.PI * 2);
+          ctx.strokeStyle = ACCENT;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(cursorX, cursorY, 3, 0, Math.PI * 2);
+          ctx.fillStyle = ACCENT;
+          ctx.fill();
         } else {
-          arcEl.classList.remove('faded');
+          ctx.beginPath();
+          ctx.arc(cursorX, cursorY, cursorSize, 0, Math.PI * 2);
+          ctx.fillStyle = ACCENT;
+          ctx.fill();
         }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      onScroll();
 
-      /* ========================================================
-       * 7. 照片灯箱
-       * ====================================================== */
-      const lightbox = document.getElementById('lightbox');
-      const lightboxCaption = document.getElementById('lightboxCaption');
-      const lightboxLabel = document.getElementById('lightboxLabel');
-      let activePhotoEl = null;
+        requestAnimationFrame(animate);
+      }
+      animate();
 
-      function openLightbox(card) {
-        const company = card.dataset.company || '';
-        const year = card.dataset.year || '';
-        lightboxCaption.textContent = year + ' · ' + company + ' · 实习照片占位';
-        lightboxLabel.textContent = company + ' 待补充照片';
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-        if (activePhotoEl) { activePhotoEl = null; }
-      }
-      document.querySelectorAll('[data-photo]').forEach(photo => {
-        photo.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const card = photo.closest('.intern-card');
-          openLightbox(card);
+      document.body.style.cursor = 'none';
+      const style = document.createElement('style');
+      style.textContent = 'a, button, .fan-card-wrapper, .dial-marker, .dial-nav-btn { cursor: none !important; }';
+      document.head.appendChild(style);
+    })();
+
+    // ===== 磁性按钮（避开表盘标记，防止破坏旋转定位）=====
+    (function() {
+      if (window.innerWidth <= 768) return;
+      if ('ontouchstart' in window) return;
+
+      const magneticElements = document.querySelectorAll('a:not(.dial-marker), button:not(.dial-marker), .magnetic');
+      const MAGNETIC_STRENGTH = 0.2;
+      const MAX_DISTANCE = 100;
+
+      magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const deltaX = e.clientX - centerX;
+          const deltaY = e.clientY - centerY;
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+          if (distance < MAX_DISTANCE) {
+            const strength = (1 - distance / MAX_DISTANCE) * MAGNETIC_STRENGTH;
+            el.style.transform = 'translate(' + (deltaX * strength) + 'px, ' + (deltaY * strength) + 'px)';
+            el.style.transition = 'none';
+          }
         });
-      });
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-close-hint') || e.target.closest('.lightbox-close-hint')) {
-          closeLightbox();
-        } else if (e.target === lightbox) {
-          closeLightbox();
-        }
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-          closeLightbox();
-        }
+
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'translate(0, 0)';
+          el.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1)';
+        });
       });
     })();
-    </script>
-  </body>
+  </script>
+</body>
 </html>
