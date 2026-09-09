@@ -12,15 +12,14 @@
         theme: {
           extend: {
             colors: {
-              primary: "#1a1a1a",
-              secondary: "#b8956a",
-              accent: "#b8956a",
-              light: "#FFFDF8",
-              dark: "#1a1a1a",
-              "text-muted": "#6a6a6a",
+              primary: "#1a1a1a", secondary: "#b8956a", accent: "#b8956a",
+              light: "#FFFDF8", dark: "#1a1a1a", "text-muted": "#6a6a6a",
             },
             fontFamily: {
               sans: ['"LXGW WenKai"', '"ZCOOL XiaoWei"', '"PingFang SC"', "system-ui", "sans-serif"],
+              serif: ['"Noto Serif SC"', '"ZCOOL XiaoWei"', "serif"],
+              mono: ['"JetBrains Mono"', "monospace"],
+              hand: ['"Caveat"', "cursive"],
             },
           },
         },
@@ -36,24 +35,26 @@
         background: var(--bg); color: var(--ink);
         font-family: "LXGW WenKai", "ZCOOL XiaoWei", "PingFang SC", system-ui, sans-serif;
         overflow-x: hidden; scroll-behavior: smooth;
+        cursor: none;
       }
       body::after {
         content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
       body .bg-white { background-color: var(--cream); }
-      body .bg-gray-50 { background-color: var(--paper-sand); }
-      body .border-gray-100 { border-color: #eee8db; }
-      body .border-gray-200 { border-color: #ddd5c6; }
-      body .bg-primary { background-color: var(--ink); }
-      body .text-primary { color: var(--ink); }
-      h1, h2, h3 { font-family: "ZCOOL KuaiLe", "ZCOOL XiaoWei", cursive; font-weight: 400; }
-      h2 { letter-spacing: 3px; }
-      h3 { letter-spacing: 1.5px; }
-      .card-hover { transition: all 0.35s cubic-bezier(0.2, 0.8, 0.25, 1); }
-      .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(90, 70, 40, 0.12); }
-      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1); }
-      .reveal.active { opacity: 1; transform: translateY(0); }
+      h1, h2, h3 { font-family: "Noto Serif SC", "ZCOOL XiaoWei", serif; font-weight: 600; }
+
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background: var(--accent); border-radius: 50%; pointer-events: none;
+        z-index: 10000; transform: translate(-50%, -50%);
+        transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
+      }
+      .cursor-dot.hover {
+        width: 20px; height: 20px; background: transparent;
+        border: 2px solid var(--accent);
+      }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
 
       .back-home {
         position: fixed; top: 24px; left: 28px; z-index: 50;
@@ -64,196 +65,334 @@
         backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         border: 1.4px solid rgba(184, 149, 106, 0.35); border-radius: 999px;
         padding: 9px 18px 9px 15px; box-shadow: 0 4px 16px rgba(90, 70, 40, 0.08);
-        transform: rotate(-1deg); transition: all 0.3s ease;
-      }
-      .back-home:hover { color: var(--ink); transform: rotate(0deg) translateY(-2px); box-shadow: 0 8px 24px rgba(90, 70, 40, 0.14); }
-
-      .page-head { padding-top: 110px; text-align: center; padding-bottom: 20px; }
-      .page-head .p-eyebrow {
-        font-family: "Caveat", cursive; font-style: italic; font-weight: 700;
-        letter-spacing: 1.5px; font-size: 22px; color: var(--accent);
-      }
-      .page-head h1 { font-size: 56px; letter-spacing: 6px; color: var(--ink); margin-top: 4px; line-height: 1.1; }
-      .page-head .page-desc {
-        font-family: "LXGW WenKai", "ZCOOL XiaoWei", "PingFang SC", sans-serif;
-        font-size: 14.5px; color: var(--ink-light); margin-top: 16px;
-        max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8;
-      }
-
-      .timeline { position: relative; }
-      .timeline::before {
-        content: ""; position: absolute; left: 18px; top: 10px; bottom: 10px;
-        width: 2px; background: linear-gradient(var(--accent), rgba(184,149,106,0.12));
-      }
-      .tl-item { position: relative; padding-left: 56px; margin-bottom: 48px; }
-      .tl-item:last-child { margin-bottom: 0; }
-      .tl-dot {
-        position: absolute; left: 9px; top: 30px; width: 20px; height: 20px;
-        border-radius: 50%; background: var(--cream); border: 2.5px solid var(--accent);
-        box-shadow: 0 0 0 5px rgba(184,149,106,0.1);
         transition: all 0.3s ease;
       }
-      .tl-item:hover .tl-dot {
-        background: var(--accent);
-        box-shadow: 0 0 0 7px rgba(184,149,106,0.15);
-      }
-      .role-badge {
-        display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 11px;
-        letter-spacing: 0.8px; color: var(--accent); border: 1px solid rgba(184,149,106,0.45);
-        border-radius: 999px; padding: 3px 13px; background: rgba(255,253,248,0.7);
-      }
-      .duty-item { position: relative; padding-left: 18px; margin-bottom: 14px; }
-      .duty-item:last-child { margin-bottom: 0; }
-      .duty-item::before {
-        content: ""; position: absolute; left: 2px; top: 11px; width: 6px; height: 6px;
-        border-radius: 50%; background: var(--accent);
-        transition: all 0.2s ease;
-      }
-      .duty-item:hover::before { transform: scale(1.4); }
-      .duty-item b { color: var(--ink); font-weight: 600; }
+      .back-home:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-2px); }
 
-      .intern-card {
-        background: var(--cream);
-        border: 1px solid #eee8db;
-        border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;
-        padding: 28px 30px;
+      .page-head { padding-top: 100px; text-align: center; padding-bottom: 16px; }
+      .page-head .p-eyebrow {
+        font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 2px;
+        color: var(--accent); text-transform: uppercase;
+      }
+      .page-head h1 { font-size: 52px; letter-spacing: 4px; color: var(--ink); margin-top: 8px; line-height: 1.1; }
+      .page-head .page-desc {
+        font-family: "Caveat", cursive; font-size: 20px; font-style: italic;
+        color: var(--ink-light); margin-top: 10px;
+      }
+
+      .book-wrapper {
+        display: flex; justify-content: center; align-items: center;
+        padding: 20px 0 40px; min-height: 560px;
+      }
+      .book-container {
+        perspective: 2200px;
+        width: min(72vw, 760px);
+        height: min(58vh, 520px);
         position: relative;
-        overflow: hidden;
       }
-      .intern-card::before {
-        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, var(--accent), rgba(184,149,106,0.2));
-        opacity: 0.6;
+      .book {
+        position: relative; width: 100%; height: 100%;
+        transform-style: preserve-3d;
       }
 
-      .page-footer {
-        padding: 60px 0 40px;
-        text-align: center;
+      .book-page {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
+        transform-origin: left center;
+        border-radius: 4px 12px 12px 4px;
       }
+      .book-page.flipped { transform: rotateY(-180deg); }
+      .book-page .page-face {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        backface-visibility: hidden; -webkit-backface-visibility: hidden;
+        overflow: hidden; border-radius: 4px 12px 12px 4px;
+      }
+      .book-page .page-front {
+        background: var(--cream);
+        box-shadow: inset -3px 0 12px rgba(0,0,0,0.04), 0 8px 30px rgba(90,70,40,0.1);
+      }
+      .book-page .page-back {
+        background: var(--cream);
+        transform: rotateY(180deg);
+        box-shadow: inset 3px 0 12px rgba(0,0,0,0.04), 0 8px 30px rgba(90,70,40,0.1);
+        border-radius: 12px 4px 4px 12px;
+      }
+
+      .book-page.cover-page .page-front,
+      .book-page.cover-page .page-back {
+        background: linear-gradient(135deg, #c4a074 0%, #b8956a 50%, #a8855a 100%);
+        color: #fff;
+      }
+
+      .page-corner-hint {
+        position: absolute; bottom: 0; right: 0; width: 40px; height: 40px;
+        background: linear-gradient(135deg, transparent 50%, rgba(184,149,106,0.15) 50%);
+        border-bottom-right-radius: 12px; pointer-events: none;
+        transition: all 0.3s ease;
+      }
+      .book-container:hover .page-corner-hint {
+        width: 50px; height: 50px;
+        background: linear-gradient(135deg, transparent 50%, rgba(184,149,106,0.25) 50%);
+      }
+
+      .cover-content {
+        height: 100%; display: flex; flex-direction: column; justify-content: center;
+        align-items: center; text-align: center; padding: 40px;
+      }
+      .cover-content .cover-label {
+        font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 3px;
+        text-transform: uppercase; opacity: 0.8; margin-bottom: 20px;
+      }
+      .cover-content .cover-title {
+        font-family: "Noto Serif SC", serif; font-size: 48px; font-weight: 600;
+        letter-spacing: 8px; margin-bottom: 12px;
+      }
+      .cover-content .cover-english {
+        font-family: "Caveat", cursive; font-size: 26px; font-style: italic;
+        opacity: 0.9; margin-bottom: 40px;
+      }
+      .cover-content .cover-timeline {
+        font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 1px;
+        opacity: 0.75; line-height: 2;
+      }
+      .cover-content .cover-hint {
+        position: absolute; bottom: 30px; font-family: "JetBrains Mono", monospace;
+        font-size: 10px; letter-spacing: 2px; opacity: 0.7;
+        display: flex; align-items: center; gap: 8px;
+      }
+
+      .page-inner {
+        height: 100%; padding: 36px 40px; display: flex; flex-direction: column;
+      }
+      .page-inner .page-meta {
+        font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 1.5px;
+        color: var(--accent); text-transform: uppercase; margin-bottom: 10px;
+      }
+      .page-inner .page-company {
+        font-family: "Noto Serif SC", serif; font-size: 30px; font-weight: 600;
+        color: var(--ink); margin-bottom: 6px;
+      }
+      .page-inner .page-role {
+        font-family: "Caveat", cursive; font-size: 18px; font-style: italic;
+        color: var(--ink-light); margin-bottom: 20px;
+      }
+      .page-inner .page-duties {
+        flex: 1; overflow-y: auto; padding-right: 8px;
+      }
+      .page-inner .page-duties::-webkit-scrollbar { width: 3px; }
+      .page-inner .page-duties::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+      .duty-item {
+        position: relative; padding-left: 16px; margin-bottom: 14px;
+        font-size: 13.5px; line-height: 1.85; color: var(--ink-soft);
+      }
+      .duty-item::before {
+        content: ""; position: absolute; left: 2px; top: 11px; width: 5px; height: 5px;
+        border-radius: 50%; background: var(--accent);
+      }
+      .duty-item b { color: var(--ink); font-weight: 600; }
+      .page-inner .page-number {
+        font-family: "JetBrains Mono", monospace; font-size: 10px;
+        color: var(--ink-light); text-align: right; margin-top: 12px;
+        letter-spacing: 1px;
+      }
+
+      .backcover-content {
+        height: 100%; display: flex; flex-direction: column; justify-content: center;
+        align-items: center; text-align: center; padding: 40px; color: #fff;
+      }
+      .backcover-content .bc-title {
+        font-family: "Noto Serif SC", serif; font-size: 28px; font-weight: 600;
+        letter-spacing: 4px; margin-bottom: 16px;
+      }
+      .backcover-content .bc-desc {
+        font-family: "Caveat", cursive; font-size: 22px; font-style: italic;
+        opacity: 0.9; margin-bottom: 30px;
+      }
+      .backcover-content .bc-contact {
+        font-family: "JetBrains Mono", monospace; font-size: 11px;
+        letter-spacing: 1px; opacity: 0.8; line-height: 2;
+      }
+      .backcover-content .bc-contact a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.4); }
+      .backcover-content .bc-contact a:hover { border-bottom-color: #fff; }
+
+      .book-controls {
+        display: flex; justify-content: center; align-items: center; gap: 32px;
+        padding: 10px 0 50px;
+      }
+      .flip-btn {
+        width: 48px; height: 48px; border-radius: 50%;
+        border: 1.5px solid rgba(184,149,106,0.4); background: var(--cream);
+        color: var(--ink-soft); cursor: pointer; display: flex; align-items: center;
+        justify-content: center; transition: all 0.3s ease;
+        font-size: 18px;
+      }
+      .flip-btn:hover:not(:disabled) {
+        background: var(--accent); color: #fff; border-color: var(--accent);
+        transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184,149,106,0.3);
+      }
+      .flip-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+      .page-indicator {
+        font-family: "JetBrains Mono", monospace; font-size: 12px;
+        color: var(--ink-light); letter-spacing: 2px; min-width: 60px; text-align: center;
+      }
+      .page-indicator .current { color: var(--accent); font-weight: 600; font-size: 14px; }
+
+      .page-footer { padding: 30px 0 40px; text-align: center; }
       .page-footer .footer-nav {
-        display: flex; justify-content: center; gap: 28px; margin-bottom: 24px;
-        flex-wrap: wrap;
+        display: flex; justify-content: center; gap: 28px; margin-bottom: 20px; flex-wrap: wrap;
       }
       .page-footer .footer-nav a {
         font-family: "JetBrains Mono", monospace; font-size: 11px;
         letter-spacing: 1px; color: var(--ink-light); text-decoration: none;
-        transition: color 0.2s;
+        position: relative; transition: color 0.2s;
       }
-      .page-footer .footer-nav a:hover { color: var(--accent); }
-      .page-footer .back-btn {
-        display: inline-flex; align-items: center; gap: 8px;
-        font-size: 13px; color: var(--ink-soft);
-        border: 1.4px solid rgba(184,149,106,0.4); border-radius: 999px;
-        padding: 10px 24px; background: var(--cream);
-        text-decoration: none; transition: all 0.3s ease;
+      .page-footer .footer-nav a::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+        background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
       }
-      .page-footer .back-btn:hover {
-        color: var(--ink); border-color: var(--accent);
-        transform: translateY(-2px); box-shadow: 0 6px 20px rgba(90,70,40,0.1);
-      }
+      .page-footer .footer-nav a:hover { color: var(--ink); }
+      .page-footer .footer-nav a:hover::after { transform: scaleX(1); }
       .page-footer .copyright {
-        margin-top: 28px; font-family: "JetBrains Mono", monospace;
-        font-size: 10.5px; color: var(--soft); letter-spacing: 0.8px; opacity: 0.7;
+        font-family: "JetBrains Mono", monospace; font-size: 10px;
+        color: var(--ink-light); letter-spacing: 0.8px; opacity: 0.6;
       }
 
-      @media (max-width: 640px) {
-        .page-head { padding-top: 90px; }
-        .page-head h1 { font-size: 38px; letter-spacing: 4px; }
-        .page-head .page-desc { font-size: 13px; padding: 0 20px; }
+      @media (max-width: 768px) {
+        .page-head { padding-top: 80px; }
+        .page-head h1 { font-size: 36px; letter-spacing: 3px; }
+        .book-container { width: 92vw; height: 62vh; }
+        .page-inner { padding: 24px 20px; }
+        .page-inner .page-company { font-size: 22px; }
+        .duty-item { font-size: 12.5px; margin-bottom: 10px; }
+        .cover-content .cover-title { font-size: 32px; letter-spacing: 4px; }
         .back-home { top: 16px; left: 16px; }
-        .timeline::before { left: 14px; }
-        .tl-item { padding-left: 42px; }
-        .tl-dot { left: 5px; top: 26px; }
-        .intern-card { padding: 22px 20px; }
       }
     </style>
   </head>
   <body>
-    <a href="index.html" class="back-home"><img src="assets/icons/arrow-left.svg" alt="" style="width:14px;height:14px;display:block"/>BACK HOME 返回主页</a>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <a href="index.html" class="back-home">
+      <img src="assets/icons/arrow-left.svg" alt="" style="width:14px;height:14px;display:block"/>
+      BACK HOME
+    </a>
 
     <header class="page-head">
-      <div class="p-eyebrow"><img src="assets/icons/spark.svg" alt="" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:7px"/> internship experience</div>
+      <div class="p-eyebrow">Internship Experience</div>
       <h1>实习经历</h1>
-      <p class="page-desc">从内容运营到产品运营，在真实业务场景中打磨判断力与执行力。每一段经历都是一次成长的迭代。</p>
-      <svg class="mx-auto mt-5 block" width="360" height="22" viewBox="0 0 360 22" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" opacity="0.3" style="max-width:70vw">
-        <path d="M6,13 C26,3 46,3 66,13 C86,23 106,23 126,13 C146,3 166,3 186,13 C206,23 226,23 246,13 C266,3 286,3 306,13 C326,23 346,21 354,14" />
-      </svg>
+      <p class="page-desc">flip through my journey ← →</p>
     </header>
 
-    <section class="py-12">
-      <div class="container mx-auto px-6 max-w-3xl">
-        <div class="timeline">
+    <div class="book-wrapper">
+      <div class="book-container" id="bookContainer">
+        <div class="book" id="book">
 
-          <div class="tl-item reveal">
-            <span class="tl-dot"></span>
-            <div class="intern-card card-hover">
-              <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                <h2 class="text-2xl md:text-3xl">小红书</h2>
-                <span class="role-badge">产品运营 · 2026.05 -- 2026.08</span>
+          <div class="book-page cover-page" data-index="0" style="z-index: 6;">
+            <div class="page-face page-front">
+              <div class="cover-content">
+                <div class="cover-label">Portfolio · 2026</div>
+                <div class="cover-title">实习经历</div>
+                <div class="cover-english">Internship Experience</div>
+                <div class="cover-timeline">
+                  2024.07 — 长春广播电视台<br/>
+                  2024.07 — 大淘体育<br/>
+                  2025.11 — 百度<br/>
+                  2026.05 — 小红书
+                </div>
+                <div class="cover-hint">
+                  <span>→</span> CLICK TO FLIP
+                </div>
               </div>
-              <p class="text-text-muted text-sm leading-relaxed mb-6" style="color: var(--ink-light);">
-                负责AI旅游社区产品的用户增长与内容生态运营，AI功能灰度上线与效果评估，主导多个AI提效工具与创新玩法从0到1的设计与落地。
-              </p>
-              <ul class="space-y-0 text-text-muted text-sm leading-relaxed" style="color: var(--ink-soft);">
-                <li class="duty-item"><b>AI内容矩阵搭建：</b>借助Vibe Coding独立搭建AI内容自动化生产工具，将单条产出成本压缩至5分钟（效率提升6倍），累计产出180+篇AI精品内容；搭建Prompt素材沉淀库，推动内容生产流程标准化。</li>
-                <li class="duty-item"><b>AI功能0→1落地：</b>调研旅游用户反馈输出需求分析，独立设计并落地塔罗手券交互创新玩法，联动研发团队排期上线；主导KOS宣发策略制定，功能上线首周Web端拉新3,000+。</li>
-                <li class="duty-item"><b>数据驱动策略迭代：</b>搭建核心数据看板，日常监控DAU/次留/7留/使用时长等核心指标，基于A/B Test分析策略与功能效果并迭代优化，驱动次日/7日留存率与人均使用时长稳步提升。</li>
-              </ul>
+            </div>
+            <div class="page-face page-back">
+              <div class="page-inner">
+                <div class="page-meta">2026.05 — 2026.08 · 产品运营</div>
+                <div class="page-company">小红书</div>
+                <div class="page-role">Product Operations Intern</div>
+                <div class="page-duties">
+                  <div class="duty-item"><b>AI内容矩阵搭建：</b>借助Vibe Coding独立搭建AI内容自动化生产工具，将单条产出成本压缩至5分钟（效率提升6倍），累计产出180+篇AI精品内容；搭建Prompt素材沉淀库，推动内容生产流程标准化。</div>
+                  <div class="duty-item"><b>AI功能0→1落地：</b>调研旅游用户反馈输出需求分析，独立设计并落地塔罗手券交互创新玩法，联动研发团队排期上线；主导KOS宣发策略制定，功能上线首周Web端拉新3,000+。</div>
+                  <div class="duty-item"><b>数据驱动策略迭代：</b>搭建核心数据看板，日常监控DAU/次留/7留/使用时长等核心指标，基于A/B Test分析策略与功能效果并迭代优化，驱动次日/7日留存率与人均使用时长稳步提升。</div>
+                </div>
+                <div class="page-number">01 / 04</div>
+              </div>
+              <div class="page-corner-hint"></div>
             </div>
           </div>
 
-          <div class="tl-item reveal">
-            <span class="tl-dot"></span>
-            <div class="intern-card card-hover">
-              <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                <h2 class="text-2xl md:text-3xl">百度</h2>
-                <span class="role-badge">产品运营 · 2025.11 -- 2026.03</span>
+          <div class="book-page" data-index="1" style="z-index: 5;">
+            <div class="page-face page-front">
+              <div class="page-inner">
+                <div class="page-meta">2025.11 — 2026.03 · 产品运营</div>
+                <div class="page-company">百度</div>
+                <div class="page-role">Product Operations Intern · SSP Platform</div>
+                <div class="page-duties">
+                  <div class="duty-item"><b>产品与流程优化：</b>主导运营工具编辑迭代，将发文流程从依赖研发排期压缩至运营侧编辑器5分钟内一键上线，发文效率提升10倍+，并沉淀可复用的SOP；同时依托AI Agent工具（OpenClaw）搭建多平台自动化发布提效链路，替代人工重复分发操作。</div>
+                  <div class="duty-item"><b>数据复盘与用户服务运营：</b>建立周度运营数据复盘机制，围绕访问量、留存率等核心指标拆解分析；负责用户服务阵地日常运营，日均响应用户咨询与问题反馈30+条，将高频问题提炼沉淀为FAQ并建立负面诉求处理SOP，基于300+份用户反馈，满意度稳定达98%+。</div>
+                  <div class="duty-item"><b>内容生态运营：</b>策划安全科普类线上话题活动，独立创作80+安全科普脚本并落地宣发，运营内容周均访问6,000+，独立访客4,000+，用户留存率提升18%；主导20万级预算安全月活动，牵头交付互动落地页。</div>
+                </div>
+                <div class="page-number">02 / 04</div>
               </div>
-              <p class="text-text-muted text-sm leading-relaxed mb-6" style="color: var(--ink-light);">
-                SSP平台是百度内部员工网络安全教育平台（防钓鱼邮件/信息泄露）。主导SSP平台内容生态运营、产品迭代及用户服务全链路。
-              </p>
-              <ul class="space-y-0 text-text-muted text-sm leading-relaxed" style="color: var(--ink-soft);">
-                <li class="duty-item"><b>产品与流程优化：</b>主导运营工具编辑迭代，将发文流程从依赖研发排期压缩至运营侧编辑器5分钟内一键上线，发文效率提升10倍+，并沉淀可复用的SOP；同时依托AI Agent工具（OpenClaw）搭建多平台自动化发布提效链路，替代人工重复分发操作，提升多平台运营效率。</li>
-                <li class="duty-item"><b>数据复盘与用户服务运营：</b>建立周度运营数据复盘机制，围绕访问量、留存率等核心指标拆解分析，针对性迭代内容选题与分发策略；负责用户服务阵地日常运营，日均响应用户咨询与问题反馈30+条，将高频问题提炼沉淀为FAQ并建立负面诉求处理SOP，基于300+份用户反馈，满意度稳定达98%+。</li>
-                <li class="duty-item"><b>内容生态运营：</b>策划安全科普类线上话题活动，独立创作80+安全科普脚本并落地宣发，运营内容周均访问6,000+，独立访客4,000+，用户留存率提升18%；主导20万级预算安全月活动，牵头交付互动落地页，实现高效用户触达与转化。</li>
-              </ul>
+              <div class="page-corner-hint"></div>
+            </div>
+            <div class="page-face page-back">
+              <div class="page-inner">
+                <div class="page-meta">2024.07 — 2024.09 · 内容运营</div>
+                <div class="page-company">大淘体育</div>
+                <div class="page-role">Content Operations Intern</div>
+                <div class="page-duties">
+                  <div class="duty-item"><b>多平台内容矩阵冷启动：</b>从0搭建抖音+公众号+官网多平台内容矩阵，主导内容选题、策划与发布节奏；产出20份策划方案+10条系列视频，单条播放稳定7W+；打通抖音+公众号内容协同，做专题策划与SEO优化，从0累积2000+精准粉丝，月阅读量提升30%。</div>
+                  <div class="duty-item"><b>用户分层与精细化运营：</b>针对用户画像模糊、转化路径不清晰痛点，搭建用户分层运营体系——基于用户消费频次与活跃度设计标签体系，划分3类核心用户匹配差异化触达策略；单月公域转私域300+人。</div>
+                </div>
+                <div class="page-number">03 / 04</div>
+              </div>
+              <div class="page-corner-hint"></div>
             </div>
           </div>
 
-          <div class="tl-item reveal">
-            <span class="tl-dot"></span>
-            <div class="intern-card card-hover">
-              <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                <h2 class="text-2xl md:text-3xl">大淘体育</h2>
-                <span class="role-badge">内容运营 · 2024.07 – 2024.09</span>
+          <div class="book-page cover-page" data-index="2" style="z-index: 4;">
+            <div class="page-face page-front">
+              <div class="page-inner">
+                <div class="page-meta">2024.07 — 2024.07 · 内容运营实习生</div>
+                <div class="page-company">吉林省长春市广播电视台</div>
+                <div class="page-role">Content Operations Intern</div>
+                <div class="page-duties">
+                  <div class="duty-item"><b>视频剪辑与多平台适配：</b>完成视频粗剪、精剪、字幕、音效、调色等全流程制作，输出横版/竖版多版本内容，累计发布5条合规视频。</div>
+                  <div class="duty-item"><b>内容创作与合规把控：</b>参与新闻推文、短视频文案撰写，协助采访整理与信息核验，具备内容合规审核与严谨文案把控能力。</div>
+                </div>
+                <div class="page-number">04 / 04</div>
               </div>
-              <p class="text-text-muted text-sm leading-relaxed mb-6" style="color: var(--ink-light);">
-                体育轻资产赛事运营公司。主导品牌新媒体账号从0冷启动，覆盖内容运营、用户分层与数据复盘全链路。
-              </p>
-              <ul class="space-y-0 text-text-muted text-sm leading-relaxed" style="color: var(--ink-soft);">
-                <li class="duty-item"><b>多平台内容矩阵冷启动：</b>从0搭建抖音+公众号+官网多平台内容矩阵，主导内容选题、策划与发布节奏；产出20份策划方案+10条系列视频，单条播放稳定7W+；打通抖音+公众号内容协同，做专题策划与SEO优化，从0累积2000+精准粉丝，月阅读量提升30%。</li>
-                <li class="duty-item"><b>用户分层与精细化运营：</b>针对用户画像模糊、转化路径不清晰痛点，搭建用户分层运营体系——基于用户消费频次与活跃度设计标签体系，划分3类核心用户匹配差异化触达策略；单月公域转私域300+人。</li>
-              </ul>
+              <div class="page-corner-hint"></div>
             </div>
-          </div>
-
-          <div class="tl-item reveal">
-            <span class="tl-dot"></span>
-            <div class="intern-card card-hover">
-              <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                <h2 class="text-2xl md:text-3xl">吉林省长春市广播电视台</h2>
-                <span class="role-badge">内容运营实习生 · 2024.07 – 2024.07</span>
+            <div class="page-face page-back">
+              <div class="backcover-content">
+                <div class="bc-title">感谢阅读</div>
+                <div class="bc-desc">Next: Projects →</div>
+                <div class="bc-contact">
+                  <a href="projects.html">VIEW PROJECTS →</a><br/><br/>
+                  464501911@qq.com<br/>
+                  +86 132 4403 9739
+                </div>
               </div>
-              <ul class="space-y-0 text-text-muted text-sm leading-relaxed mt-4" style="color: var(--ink-soft);">
-                <li class="duty-item"><b>视频剪辑与多平台适配：</b>完成视频粗剪、精剪、字幕、音效、调色等全流程制作，输出横版/竖版多版本内容，累计发布5条合规视频。</li>
-                <li class="duty-item"><b>内容创作与合规把控：</b>参与新闻推文、短视频文案撰写，协助采访整理与信息核验，具备内容合规审核与严谨文案把控能力。</li>
-              </ul>
             </div>
           </div>
 
         </div>
       </div>
-    </section>
+    </div>
+
+    <div class="book-controls">
+      <button class="flip-btn" id="prevBtn" disabled>
+        <img src="assets/icons/arrow-left.svg" alt="" style="width:18px;height:18px;display:block"/>
+      </button>
+      <div class="page-indicator">
+        <span class="current" id="currentPage">0</span> / <span id="totalPages">3</span>
+      </div>
+      <button class="flip-btn" id="nextBtn">
+        <img src="assets/icons/arrow-right.svg" alt="" style="width:18px;height:18px;display:block"/>
+      </button>
+    </div>
 
     <footer class="page-footer">
       <div class="footer-nav">
@@ -262,22 +401,85 @@
         <a href="campus.html">CAMPUS</a>
         <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener">GITHUB</a>
       </div>
-      <a href="index.html" class="back-btn">
-        <img src="assets/icons/arrow-left.svg" alt="" style="width:15px;height:15px;display:block"/>
-        返回思维导图首页
-      </a>
       <p class="copyright">© 2026 WANG JIAXIN · ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add("active"), index * 80);
+      const cursorDot = document.getElementById('cursorDot');
+      let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+      });
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursorDot.style.left = cursorX + 'px';
+        cursorDot.style.top = cursorY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, .book-container').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+      });
+
+      const pages = document.querySelectorAll('.book-page');
+      const totalPages = pages.length;
+      let currentIndex = 0;
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const currentPageEl = document.getElementById('currentPage');
+      const totalPagesEl = document.getElementById('totalPages');
+      totalPagesEl.textContent = totalPages;
+
+      function updateBook() {
+        pages.forEach((page, i) => {
+          if (i < currentIndex) {
+            page.classList.add('flipped');
+            page.style.zIndex = i + 1;
+          } else {
+            page.classList.remove('flipped');
+            page.style.zIndex = totalPages - i;
           }
         });
-      }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        currentPageEl.textContent = currentIndex;
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalPages;
+      }
+
+      function nextPage() {
+        if (currentIndex < totalPages) { currentIndex++; updateBook(); }
+      }
+      function prevPage() {
+        if (currentIndex > 0) { currentIndex--; updateBook(); }
+      }
+
+      prevBtn.addEventListener('click', prevPage);
+      nextBtn.addEventListener('click', nextPage);
+
+      const bookContainer = document.getElementById('bookContainer');
+      bookContainer.addEventListener('click', (e) => {
+        const rect = bookContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        if (clickX > rect.width / 2) { nextPage(); } else { prevPage(); }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextPage(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prevPage(); }
+      });
+
+      let touchStartX = 0;
+      bookContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      bookContainer.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) { if (diff > 0) nextPage(); else prevPage(); }
+      }, { passive: true });
+
+      updateBook();
     </script>
   </body>
 </html>
