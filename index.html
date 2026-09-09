@@ -68,7 +68,13 @@
         width: 24px; height: 24px; background: transparent;
         border: 2px solid var(--accent);
       }
-      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } }
+      @media (max-width: 768px) { body { cursor: auto; } .cursor-dot { display: none; } #cursor-canvas { display: none; } }
+
+      /* ==== SplashCursor 粒子尾迹画布 ==== */
+      #cursor-canvas {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none; z-index: 10000;
+      }
 
       /* ==== Ballpit 球池粒子画布 ==== */
       #ballpit-canvas {
@@ -505,6 +511,10 @@
         --card-bg: #dfe8de;
         --radius: 60% 40% 40% 60% / 50% 50% 60% 40%;
       }
+      #label-branch-5 .synapse-label {
+        --card-bg: #f5e6d4;
+        --radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
+      }
 
       /* 装饰性手绘曲线 */
       .doodle {
@@ -588,6 +598,36 @@
       #head .synapse-label:hover .ch:nth-child(10) {
         animation: chBounce 0.5s ease 315ms;
       }
+      #head .synapse-label:hover .ch:nth-child(11) {
+        animation: chBounce 0.5s ease 350ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(12) {
+        animation: chBounce 0.5s ease 385ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(13) {
+        animation: chBounce 0.5s ease 420ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(14) {
+        animation: chBounce 0.5s ease 455ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(15) {
+        animation: chBounce 0.5s ease 490ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(16) {
+        animation: chBounce 0.5s ease 525ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(17) {
+        animation: chBounce 0.5s ease 560ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(18) {
+        animation: chBounce 0.5s ease 595ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(19) {
+        animation: chBounce 0.5s ease 630ms;
+      }
+      #head .synapse-label:hover .ch:nth-child(20) {
+        animation: chBounce 0.5s ease 665ms;
+      }
 
       @keyframes sway0 {
         0%,
@@ -634,6 +674,15 @@
           transform: rotate(1.2deg);
         }
       }
+      @keyframes sway5 {
+        0%,
+        100% {
+          transform: rotate(1.5deg);
+        }
+        50% {
+          transform: rotate(-1.4deg);
+        }
+      }
       body.open #branch-0,
       body.open #label-branch-0 {
         animation: sway0 5.2s ease-in-out infinite;
@@ -653,6 +702,10 @@
       body.open #branch-4,
       body.open #label-branch-4 {
         animation: sway4 6.1s ease-in-out 0.25s infinite;
+      }
+      body.open #branch-5,
+      body.open #label-branch-5 {
+        animation: sway0 5.5s ease-in-out 0.2s infinite;
       }
 
       /* ==== 底部统一页脚 ==== */
@@ -1217,6 +1270,8 @@
   <body>
     <!-- 自定义光标 -->
     <div class="cursor-dot" id="cursorDot"></div>
+    <!-- SplashCursor 粒子尾迹画布 -->
+    <canvas id="cursor-canvas"></canvas>
     <!-- Ballpit 球池粒子画布 -->
     <canvas id="ballpit-canvas"></canvas>
 
@@ -1459,6 +1514,31 @@
             </circle>
           </svg>
         </div>
+        <div class="branch" id="branch-5">
+          <svg class="synapse-svg" viewBox="-300 -300 600 600">
+            <path
+              class="synapse-line"
+              id="line-5"
+              d="M0,0 C-10,90 -15,180 0,250"
+            />
+            <circle class="synapse-pulse" r="2.5">
+              <animateMotion
+                dur="1.7s"
+                repeatCount="indefinite"
+                begin="indefinite"
+                path="M0,0 C-10,90 -15,180 0,250"
+              />
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0"
+                keyTimes="0;0.15;0.85;1"
+                dur="1.7s"
+                repeatCount="indefinite"
+                begin="indefinite"
+              />
+            </circle>
+          </svg>
+        </div>
       </div>
 
       <!-- ---- labels & cards ---- -->
@@ -1574,6 +1654,15 @@
           </svg>
         </div>
 
+        <!-- 5. Journey -->
+        <div class="label-branch" id="label-branch-5" style="--x: -10px; --y: 230px">
+          <a href="journey.html" class="synapse-label" data-word="journey" data-i="5">
+            <div class="title-row"><span class="spark"><img src="assets/icons/spark.svg" alt="" style="width:12px;height:12px;display:block"/></span></div>
+            <div class="zh-title">成长旅程</div>
+            <div class="sub-desc">My growth<br/>journey &amp;<br/>milestones</div>
+          </a>
+        </div>
+
         <!-- 点缀四角星 -->
         <div class="deco-star" style="top: -120px; right: -180px">✦</div>
         <div
@@ -1595,6 +1684,7 @@
         <a href="https://github.com/xiaoxin6661" target="_blank" rel="noopener" class="magnetic-btn">GITHUB</a>
         <a href="about.html" class="magnetic-btn">ABOUT</a>
         <a href="internship.html" class="magnetic-btn">WORK</a>
+        <a href="journey.html" class="magnetic-btn">JOURNEY</a>
       </div>
     </div>
 
@@ -1785,6 +1875,109 @@
         el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
       });
 
+      // ==== SplashCursor 粒子尾迹 ====
+      (function() {
+        if (window.innerWidth <= 768) return; // 移动端不启动
+        const canvas = document.getElementById('cursor-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let cw, ch;
+        function resize() {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const ACCENT = '#b8956a';
+        const particles = [];
+        const ripples = [];
+
+        function spawnTrail(x, y, count) {
+          for (let i = 0; i < count; i++) {
+            particles.push({
+              x: x + (Math.random() - 0.5) * 6,
+              y: y + (Math.random() - 0.5) * 6,
+              vx: (Math.random() - 0.5) * 1.2,
+              vy: (Math.random() - 0.5) * 1.2 - 0.3,
+              r: 2 + Math.random() * 2,
+              life: 1,
+              decay: 0.02 + Math.random() * 0.02
+            });
+          }
+        }
+
+        function spawnBurst(x, y) {
+          const n = 14;
+          for (let i = 0; i < n; i++) {
+            const ang = (Math.PI * 2 * i) / n + Math.random() * 0.3;
+            const sp = 1.5 + Math.random() * 2.2;
+            particles.push({
+              x: x, y: y,
+              vx: Math.cos(ang) * sp,
+              vy: Math.sin(ang) * sp,
+              r: 2 + Math.random() * 2,
+              life: 1,
+              decay: 0.018 + Math.random() * 0.02
+            });
+          }
+        }
+
+        function spawnRipple(x, y) {
+          ripples.push({ x: x, y: y, r: 4, life: 1 });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+          spawnTrail(e.clientX, e.clientY, 5 + Math.floor(Math.random() * 4));
+        });
+
+        document.addEventListener('click', (e) => {
+          spawnRipple(e.clientX, e.clientY);
+          spawnBurst(e.clientX, e.clientY);
+        });
+
+        document.querySelectorAll('a, button, .synapse-label, #head, .magnetic-btn').forEach(el => {
+          el.addEventListener('mouseenter', (e) => {
+            const r = el.getBoundingClientRect();
+            spawnBurst(r.left + r.width / 2, r.top + r.height / 2);
+          });
+        });
+
+        function tick() {
+          ctx.clearRect(0, 0, cw, ch);
+          // 粒子
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            p.vx *= 0.96; p.vy *= 0.96;
+            p.life -= p.decay;
+            if (p.life <= 0) { particles.splice(i, 1); continue; }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+            ctx.fillStyle = ACCENT;
+            ctx.globalAlpha = p.life;
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+          // 涟漪
+          for (let i = ripples.length - 1; i >= 0; i--) {
+            const r = ripples[i];
+            r.r += 2.4;
+            r.life -= 0.025;
+            if (r.life <= 0) { ripples.splice(i, 1); continue; }
+            ctx.beginPath();
+            ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+            ctx.strokeStyle = ACCENT;
+            ctx.globalAlpha = r.life * 0.7;
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+          }
+          ctx.globalAlpha = 1;
+          requestAnimationFrame(tick);
+        }
+        tick();
+      })();
+
       // ==== 磁性按钮 ====
       document.querySelectorAll('.magnetic-btn').forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
@@ -1817,15 +2010,16 @@
 
         const colors = ['#f3e4e6', '#e9e4f0', '#f5ecd4', '#e5eaf0', '#dfe8de', '#f0e6d8'];
         const balls = [];
-        const BALL_COUNT = 18;
+        const BALL_COUNT = 28;
         for (let i = 0; i < BALL_COUNT; i++) {
           balls.push({
             x: Math.random() * W,
             y: Math.random() * H,
             vx: (Math.random() - 0.5) * 0.4,
             vy: (Math.random() - 0.5) * 0.4,
-            r: 8 + Math.random() * 18,
-            color: colors[Math.floor(Math.random() * colors.length)]
+            r: 15 + Math.random() * 25,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            hitFlash: 0
           });
         }
 
@@ -1838,8 +2032,8 @@
             // 鼠标排斥
             const dx = b.x - mousePX, dy = b.y - mousePY;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
-              const force = (120 - dist) / 120 * 0.8;
+            if (dist < 150) {
+              const force = (150 - dist) / 150 * 0.8;
               b.vx += (dx / dist) * force;
               b.vy += (dy / dist) * force;
             }
@@ -1855,11 +2049,38 @@
             // 绘制
             ctx.beginPath();
             ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.fillStyle = b.color;
-            ctx.globalAlpha = 0.6;
+            ctx.fillStyle = b.hitFlash > 0 ? '#b8956a' : b.color;
+            ctx.globalAlpha = b.hitFlash > 0 ? 0.6 + b.hitFlash * 0.3 : 0.6;
             ctx.fill();
             ctx.globalAlpha = 1;
+            if (b.hitFlash > 0) b.hitFlash -= 0.05;
           });
+          // 球与球碰撞检测：碰撞时变色并改变速度
+          for (let i = 0; i < balls.length; i++) {
+            for (let j = i + 1; j < balls.length; j++) {
+              const a = balls[i], b = balls[j];
+              const dx = b.x - a.x, dy = b.y - a.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              const minDist = a.r + b.r;
+              if (dist < minDist && dist > 0) {
+                // 触发变色闪烁
+                a.hitFlash = 1; b.hitFlash = 1;
+                // 简单弹性碰撞：交换沿法线方向的速度分量
+                const nx = dx / dist, ny = dy / dist;
+                const dvx = b.vx - a.vx, dvy = b.vy - a.vy;
+                const dot = dvx * nx + dvy * ny;
+                if (dot < 0) {
+                  const impulse = dot * 0.9;
+                  a.vx += impulse * nx; a.vy += impulse * ny;
+                  b.vx -= impulse * nx; b.vy -= impulse * ny;
+                }
+                // 推开重叠
+                const overlap = (minDist - dist) / 2;
+                a.x -= nx * overlap; a.y -= ny * overlap;
+                b.x += nx * overlap; b.y += ny * overlap;
+              }
+            }
+          }
           requestAnimationFrame(animate);
         }
         // 移动端不启动球池
@@ -1870,7 +2091,7 @@
       let opened = false;
 
       // ---- synapse branches: measure each path once, prep for stroke-draw ----
-      const BRANCH_COUNT = 5;
+      const BRANCH_COUNT = 6;
       const branchPaths = [];
       const branchLens = [];
       const branchPulses = [];
